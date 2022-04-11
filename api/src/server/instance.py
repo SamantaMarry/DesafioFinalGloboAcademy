@@ -14,5 +14,4 @@ class Server:
     ):
         self.app.run(debug=True)
 
-
 server = Server()
