@@ -85,25 +85,27 @@ class db_sqlite3:
     def sql_create_db(self):
         sqls = [
             """
-          CREATE TABLE IF NOT EXISTS restaurants ( 
-            id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 
-            name TEXT NOT NULL,
-            address TEXT NOT NULL,
-            description TEXT,
-            url_image TEXT NOT NULL,
-            responsible_name TEXT NOT NULL
-          );""",
+            CREATE TABLE IF NOT EXISTS restaurants (
+              id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+              name TEXT NOT NULL,
+              address TEXT NOT NULL,
+              description TEXT NULL,
+              url_image TEXT NOT NULL,
+              responsible_name TEXT NOT NULL
+            );
+          """,
             """
-          CREATE TABLE IF NOT EXISTS products ( 
-            id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 
-            name TEXT NOT NULL,
-            url_image TEXT NOT NULL,
-            description TEXT,
-            price NUMERIC NOT NULL,
-            extras TEXT,
-            id_restaurants INTEGER NOT NULL,
-            FOREIGN KEY(id_restaurants) REFERENCES restaurants(id)
-          );
+            CREATE TABLE IF NOT EXISTS products (
+              id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+              name TEXT NOT NULL,
+              url_image TEXT NOT NULL,
+              description TEXT NULL,
+              price NUMERIC NOT NULL,
+              extras TEXT NULL,
+              id_restaurant INTEGER NOT NULL,
+              CONSTRAINT FK_products_restaurants FOREIGN KEY (id_restaurant)
+                REFERENCES restaurants (id)
+            );
           """,
         ]
 
