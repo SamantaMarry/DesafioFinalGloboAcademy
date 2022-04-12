@@ -1,0 +1,81 @@
+@baseUrl = http://localhost:5000
+
+### RESTAURANTS ###
+#__columns__ = ("id", "name", "address", "description", "url_image", "responsible_name")
+
+POST {{baseUrl}}/restaurants HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Sul R",
+    "address": "Rua 2",
+    "description": "Lorem Ipsum",
+    "url_image":"https://d3m7xw68ay40x8.cloudfront.net/assets/2019/10/23091614/NOV19-charlotte-restaurants-serving-global-fare-hawkers-restaurant-timrobison.jpg",
+    "responsible_name": "Samanta"
+}
+
+###
+
+GET {{baseUrl}}/restaurants?order=name-asc HTTP/1.1
+
+###
+
+GET {{baseUrl}}/restaurants/1 HTTP/1.1
+
+###
+
+PUT {{baseUrl}}/restaurants/1 HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Sul R",
+    "address": "Rua 2",
+    "description": "Lorem Ipsum",
+    "url_image":"https://d3m7xw68ay40x8.cloudfront.net/assets/2019/10/23091614/NOV19-charlotte-restaurants-serving-global-fare-hawkers-restaurant-timrobison.jpg",
+    "responsible_name": "Samanta"
+}
+
+###
+
+DELETE {{baseUrl}}/restaurants/3 HTTP/1.1
+
+### PRODUCTS ###
+# __columns__ = ("id", "name", "url_image", "description", "price", "extras", "id_restaurant")
+
+POST {{baseUrl}}/products HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "X-Tudo 3",
+    "url_image":"https://d3m7xw68ay40x8.cloudfront.net/assets/2019/10/23091614/NOV19-charlotte-restaurants-serving-global-fare-hawkers-restaurant-timrobison.jpg",
+    "description": "Lorem Ipsum",
+    "price": 21.50,
+    "extras": "Lorem Ipsum",
+    "id_restaurant": 1
+}
+
+###
+
+GET {{baseUrl}}/products?order=name-asc HTTP/1.1
+
+###
+
+GET {{baseUrl}}/products/2 HTTP/1.1
+
+###
+
+PUT {{baseUrl}}/products/1 HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "X-Tudo - bacon",
+    "url_image":"https://d3m7xw68ay40x8.cloudfront.net/assets/2019/10/23091614/NOV19-charlotte-restaurants-serving-global-fare-hawkers-restaurant-timrobison.jpg",
+    "description": "Lorem Ipsum 2",
+    "price": 18.50,
+    "extras": "Lorem Ipsum 2",
+    "id_restaurant": 2
+}
+
+###
+
+DELETE {{baseUrl}}/products/3 HTTP/1.1

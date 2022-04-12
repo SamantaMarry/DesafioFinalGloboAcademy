@@ -7,15 +7,19 @@ python --version
 # Criar ambiente virtual de puton
 python -m venv [nome]
 
-pip install Flask
-pip install Flask-Restful
+# Instalar pacotes
+python -m pi install [name-pacote]
+
+- python -m pip install Flask
+- python -m pip install Flask-Restful
+
+ - py -m pip install python-dotenv
 
 pip freeze > requirements.txt
 - python -m pip freeze > requirements.txt
 
-pip install -r requirements.txt
-
-pip uninstall nome da_lib
+- python -m pip install -r requirements.txt
+- python -m pip uninstall nome da_lib
 
 Thunder Cliente(vscode) ou Postman
 
@@ -26,3 +30,10 @@ book = [book [ book for book in books book['title'] title ]
 # https://www.youtube.com/watch?v=b6wzCMH6-tY
 # https://www.youtube.com/watch?v=P4yljJ9YBpg
 
+--------
+Links:
+  [.env Python]
+  - https://dev.to/jakewitcher/using-env-files-for-environment-variables-in-python-applications-55a1
+
+  [f-string Formatting in Python]
+  - https://www.datacamp.com/community/tutorials/f-string-formatting-in-python?utm_source=adwords_ppc&utm_medium=cpc&utm_campaignid=1455363063&utm_adgroupid=65083631748&utm_device=c&utm_keyword=&utm_matchtype=&utm_network=g&utm_adpostion=&utm_creative=278443377095&utm_targetid=aud-299261629574:dsa-429603003980&utm_loc_interest_ms=&utm_loc_physical_ms=1001655&gclid=Cj0KCQjwxtSSBhDYARIsAEn0thSVd57YeIAujRzS0sQlrQ3-nDHVmNb8AkTbAy2vjYL77lsAOHg1bTcaAsGFEALw_wcB
