@@ -1,4 +1,4 @@
-from api.src.modal.modal_base import ModelBase
+from src.model.model_base import ModelBase
 
 
 class ProductModel(ModelBase):

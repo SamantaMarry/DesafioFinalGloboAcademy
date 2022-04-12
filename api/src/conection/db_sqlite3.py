@@ -99,7 +99,7 @@ class db_sqlite3:
             name TEXT NOT NULL,
             url_image TEXT NOT NULL,
             description TEXT,
-            price TEXT NOT NULL,
+            price NUMERIC NOT NULL,
             extras TEXT,
             id_restaurants INTEGER NOT NULL,
             FOREIGN KEY(id_restaurants) REFERENCES restaurants(id)

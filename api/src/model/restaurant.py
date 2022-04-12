@@ -1,7 +1,7 @@
-from api.src.modal.modal_base import ModelBase
+from src.model.model_base import ModelBase
 
 
-class RestaurantsModel(ModelBase):
+class RestaurantModel(ModelBase):
     __tablename__ = "restaurants"
     __columns__ = ("id", "name", "address", "description", "url_image", "responsible_name")
 
