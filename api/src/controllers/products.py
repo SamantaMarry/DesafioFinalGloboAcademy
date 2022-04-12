@@ -1,4 +1,5 @@
 import os
+from flask import request
 from flask_restful import Resource, reqparse
 from src.server.instance import server
 from src.server.db import db
@@ -86,8 +87,12 @@ class Product(Resource):
 class ProductList(Resource):
     def get(self):
         ProductModel.setConnectDataBase(db)
+
+        # querystring
+        order = request.args.get("order", default="", type=str)
+
         try:
-            products = ProductModel.find_all()
+            products = ProductModel.find_all(order=order)
         except Exception as error:
             return {"Error": str(error)}, 400
         return products

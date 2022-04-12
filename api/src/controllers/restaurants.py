@@ -1,4 +1,5 @@
 import os
+from flask import request
 from flask_restful import Resource, reqparse
 from src.server.instance import server
 from src.server.db import db
@@ -78,8 +79,12 @@ class Restaurant(Resource):
 class RestaurantList(Resource):
     def get(self):
         RestaurantModel.setConnectDataBase(db)
+
+        # querystring
+        order = request.args.get("order", default="", type=str)
+
         try:
-            restaurants = RestaurantModel.find_all()
+            restaurants = RestaurantModel.find_all(order=order)
         except Exception as error:
             return {"Error": str(error)}, 400
         return restaurants
