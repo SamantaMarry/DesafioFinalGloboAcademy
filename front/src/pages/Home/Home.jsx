@@ -2,8 +2,58 @@
 export default function Home() {
   return (
     <>
-      <h1>A</h1>
-      <h2>B</h2>
-    </>
+      <body>
+        <header>
+          <div id="logo">
+            <h1>Jason's Food</h1>
+          </div>
+          <div id="navbar">
+            <ul id="links-navbar">
+              <li><a href="#">Restaurantes</a></li>
+              <li><a href="#">Trabelhe conosco</a></li>
+              <li><a href="#">Entregas</a></li>
+            </ul>
+            <div id="login-area">
+              <button>Entrar</button>
+              <a href="#">Cadastrar</a>
+            </div>
+          </div>
+        </header>
+
+        <main>
+          <article id="main-content">
+            <section id="search-box">
+              <h2>Escolha sua comida favorita.</h2>
+              <input type="text" placeholder="Ex: Tom, The Italian" />
+              <button>buscar</button>
+            </section>
+
+            <section class="catalogs" id="catalog1">
+              <h3>Venha para o Jason's Food!</h3>
+              <p>Acelere o seu negócio</p>
+              <ul>
+                <li><a href="#">Lorem Ipsum</a></li>
+                <li><a href="#">Lorem Ipsum</a></li>
+                <li><a href="#">Lorem Ipsum</a></li>
+                <li><a href="#">Lorem Ipsum</a></li>
+              </ul>
+            </section>
+            <section class="catalogs" id="catalog2">
+            <p>Acelere o seu negócio</p>
+              <ul>
+                <li><a href="#">Lorem Ipsum</a></li>
+                <li><a href="#">Lorem Ipsum</a></li>
+                <li><a href="#">Lorem Ipsum</a></li>
+                <li><a href="#">Lorem Ipsum</a></li>
+              </ul>
+            </section>
+            <section class="food-style">
+              <h4>Comida para todo mundo!</h4>
+              </section>
+          </article>
+        </main>
+        <footer></footer>
+      </body>
+
   )
 }
