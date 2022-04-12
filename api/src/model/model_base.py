@@ -63,3 +63,16 @@ class ModelBase:
         res = cls._db.pquey(sql, [id]).fetchone()
 
         return res
+
+    @classmethod
+    def find_by_id_build(cls, id):
+        data = cls.find_by_id(id)
+
+        if not data:
+            return False
+
+        obj = cls()
+        for column in cls.__columns__:
+            setattr(obj, column, data[column])
+
+        return obj

@@ -1,3 +1,7 @@
+from dotenv import load_dotenv
+
+load_dotenv()
+
 from src.server.instance import server
 from src.server.db import db
 
