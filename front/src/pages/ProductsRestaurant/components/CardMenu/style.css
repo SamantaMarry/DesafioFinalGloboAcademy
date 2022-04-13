@@ -1,0 +1,22 @@
+.c-card-menu_content {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px;
+  width: 420px;
+  border-radius: 18px;
+
+
+  background-color: #153335;
+  color: #FFF;
+}
+
+.c-card-menu_left {
+  flex-basis: 35%;
+}
+
+/* .c-card-menu_left image {
+} */
+
+.c-card-menu_right {
+  flex-basis: 55%;
+}
