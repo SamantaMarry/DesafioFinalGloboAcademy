@@ -39,7 +39,7 @@ export default function Home() {
               </ul>
             </section>
             <section class="catalogs" id="catalog2">
-            <p>Acelere o seu negócio</p>
+              <p>Acelere o seu negócio</p>
               <ul>
                 <li><a href="#">Lorem Ipsum</a></li>
                 <li><a href="#">Lorem Ipsum</a></li>
@@ -49,7 +49,7 @@ export default function Home() {
             </section>
             <section class="food-style">
               <h4>Comida para todo mundo!</h4>
-              </section>
+            </section>
           </article>
         </main>
         <footer>
@@ -80,11 +80,10 @@ export default function Home() {
             <ul>
                 <li><a href="#">Políticas e termos</a></li>
                 <li><a href="#">Sobre o Jason's Food</a></li>
-                            </ul>
+              </ul>
           </section>
-
         </footer>
       </body>
-</>
+    </>
   )
 }
