@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_restful import Api
+from flask_cors import CORS, cross_origin
 
 
 class Server:
@@ -8,6 +9,7 @@ class Server:
     ):
         self.app = Flask(__name__)
         self.api = Api(self.app)
+        self.cors = CORS(self.app)
 
     def run(
         self,

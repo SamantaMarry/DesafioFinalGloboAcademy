@@ -59,10 +59,19 @@ class RestaurantList(Resource):
         restaurant = RestaurantModel().build(
             data.name, data.address, data.description, data.url_image, data.responsible_name
         )
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
         try:
             lastid = restaurant.insert().lastrowid
         except Exception as error:
             return {"Error": str(error)}, 400
+<<<<<<< Updated upstream
         
         return None, 201, {"Location": f"http://127.0.0.1:5000/restaurants/{lastid}"}
 
+=======
+   
+        return None, 201, {"Location": f"{os.getenv('ROOT_URL')}/restaurants/{lastid}"}
+>>>>>>> Stashed changes
