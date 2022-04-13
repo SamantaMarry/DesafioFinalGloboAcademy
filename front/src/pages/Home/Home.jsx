@@ -8,7 +8,7 @@ export default function Home() {
       <body style={{ backgroundImage: `url(${background})` }}>
         <header>
           <div id="logo">
-            <img src={logo}/>
+            <img src={logo} />
           </div>
           <div class="menu">
             <div class="links-menu">
@@ -29,7 +29,7 @@ export default function Home() {
           <article id="main-content">
             <section id="search-box">
               <h2>Escolha a sua<br />
-               comida favorita.</h2>
+                comida favorita.</h2>
               <input type="text" placeholder="Ex: Tom, The Italian" />
               <button>buscar</button>
             </section>
@@ -62,31 +62,31 @@ export default function Home() {
           <section>
             <p>onde estamos</p>
             <ul>
-                <li><a href="#">recife</a></li>
-                <li><a href="#">joão Pessoa</a></li>
-                <li><a href="#">são paulo</a></li>
-                <li><a href="#">rio de janeiro</a></li>
-                <li><a href="#">belo horizonte</a></li>
-                <li><a href="#">porto alegre</a></li>
-              </ul>
+              <li><a href="#">recife</a></li>
+              <li><a href="#">joão Pessoa</a></li>
+              <li><a href="#">são paulo</a></li>
+              <li><a href="#">rio de janeiro</a></li>
+              <li><a href="#">belo horizonte</a></li>
+              <li><a href="#">porto alegre</a></li>
+            </ul>
           </section>
           <section>
             <p>contato</p>
             <ul>
-                <li><a href="#">facebook.com/JasonsFood</a></li>
-                <li><a href="#">twitter.com/JasonsFood</a></li>
-                <li><a href="#">instagram.com/JasonsFood</a></li>
-                <li><a href="#">contatojasonsfood@gmail.com</a></li>
-                <li><a href="#">tel:  11 9 9999-9999</a></li>
-                
-              </ul>
+              <li><a href="#">facebook.com/JasonsFood</a></li>
+              <li><a href="#">twitter.com/JasonsFood</a></li>
+              <li><a href="#">instagram.com/JasonsFood</a></li>
+              <li><a href="#">contatojasonsfood@gmail.com</a></li>
+              <li><a href="#">tel:  11 9 9999-9999</a></li>
+
+            </ul>
           </section>
           <section>
             <p>Jason's food</p>
             <ul>
-                <li><a href="#">Políticas e termos</a></li>
-                <li><a href="#">Sobre o Jason's Food</a></li>
-              </ul>
+              <li><a href="#">Políticas e termos</a></li>
+              <li><a href="#">Sobre o Jason's Food</a></li>
+            </ul>
           </section>
         </footer>
       </body>
