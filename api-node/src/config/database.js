@@ -16,6 +16,10 @@ const config = {
     database: process.env.DB_DATABASE,
     host: process.env.DB_HOST,
     dialect: process.env.DB_DIALECT,
+    define: {
+      timestamps: false, /** faz com q todas as tabelas tenham as colunas created_at, updated_at */
+      underscored: true /** faz os nomes das tabelas e campos separador por _ */
+    }
   },
   test: {
     username: "root",

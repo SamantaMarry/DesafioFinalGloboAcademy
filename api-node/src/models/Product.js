@@ -6,11 +6,15 @@ class Product extends Model {
     return 'Products';
   }
 
-  static init(sequelize) { //recebe a conexão do banco de dados
+  static init(sequelize) {
     return super.init({
       name: {
         type: DataTypes.STRING,
         allowNull: false,
+        validate: {
+          notEmpty: true,
+          is: /^[A-Za-z\s]+$/i
+        }
       },
       url_image: {
         type: DataTypes.TEXT,
@@ -19,6 +23,7 @@ class Product extends Model {
       description: {
         type: DataTypes.STRING,
         allowNull: false,
+        defaultValue: ""
       },
       price: {
         type: DataTypes.FLOAT,
@@ -27,8 +32,10 @@ class Product extends Model {
       extras: {
         type: DataTypes.TEXT,
         allowNull: false,
+        defaultValue: ""
       }
     }, {
+      tableName: 'products',
       hooks: {},
       sequelize,
       defaultScope: {},
@@ -36,6 +43,7 @@ class Product extends Model {
   }
 
   static associate(models) {
+    this.belongsTo(models.Restaurant, { foreignKey: 'id_restaurant', as: 'restaurant' });
   }
 
 }

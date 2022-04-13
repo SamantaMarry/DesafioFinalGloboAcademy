@@ -6,7 +6,7 @@ class Restaurant extends Model {
     return 'Restaurants';
   }
 
-  static init(sequelize) { //recebe a conexão do banco de dados
+  static init(sequelize) {
     return super.init({
       name: {
         type: DataTypes.STRING,
@@ -19,16 +19,25 @@ class Restaurant extends Model {
       description: {
         type: DataTypes.STRING,
         allowNull: false,
+        defaultValue: ""
       },
       url_image: {
         type: DataTypes.TEXT,
         allowNull: false,
+        validate: {
+          notEmpty: true,
+        }
       },
       responsible_name: {
         type: DataTypes.STRING,
         allowNull: false,
+        validate: {
+          notEmpty: true,
+          is: /^[A-Za-z\s]+$/i
+        }
       }
     }, {
+      tableName: 'restaurants',
       hooks: {},
       sequelize,
       defaultScope: {},
@@ -36,6 +45,7 @@ class Restaurant extends Model {
   }
 
   static associate(models) {
+    this.hasOne(models.Product, { foreignKey: 'id_restaurant', as: 'product' });
   }
 
 }
