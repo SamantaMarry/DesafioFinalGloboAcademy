@@ -1,22 +1,25 @@
 import './home.css';
 import logo from './logo.svg';
 import background from './background.svg';
+import catalog from './catalog.svg';
 
 export default function Home() {
   return (
     <>
       <body style={{ backgroundImage: `url(${background})` }}>
         <header>
-          <div id="logo">
-            <img src={logo}/>
-          </div>
-          <div class="menu">
-            <div class="links-menu">
-              <ul>
-                <li><a href="">Restaurantes</a></li>
-                <li><a href="">Trabalhe conosco</a></li>
-                <li><a href="">Entregas</a></li>
-              </ul>
+          <div id="logo-links">
+            <div id="logo">
+              <img src={logo}/>
+            </div>
+            <div class="menu">
+              <div class="links-menu">
+                <ul>
+                  <li><a href="">Restaurantes</a></li>
+                  <li><a href="">Trabalhe conosco</a></li>
+                  <li><a href="">Entregas</a></li>
+                </ul>
+              </div>
             </div>
           </div>
           <div class="login-area">
@@ -27,6 +30,7 @@ export default function Home() {
 
         <main>
           <article id="main-content">
+
             <section id="search-box">
               <h2>Escolha a sua<br />
                comida favorita.</h2>
@@ -34,7 +38,14 @@ export default function Home() {
               <button>buscar</button>
             </section>
 
-            <section class="catalogs" id="catalog1">
+            <section class="food-style">
+              <h4>Comida para todo <br />
+               gosto!</h4>
+               <img src={catalog}/>
+            </section>
+
+    
+            {/*<section class="catalogs" id="catalog1">
               <h3>Venha para o Jason's Food!</h3>
               <p>Acelere o seu negócio</p>
               <ul>
@@ -52,14 +63,12 @@ export default function Home() {
                 <li><a href="#">Lorem Ipsum</a></li>
                 <li><a href="#">Lorem Ipsum</a></li>
               </ul>
-            </section>
-            <section class="food-style">
-              <h4>Comida para todo mundo!</h4>
-            </section>
+            </section>*/}
+
           </article>
         </main>
         <footer>
-          <section>
+          <section class="places">
             <p>onde estamos</p>
             <ul>
                 <li><a href="#">recife</a></li>
@@ -70,7 +79,7 @@ export default function Home() {
                 <li><a href="#">porto alegre</a></li>
               </ul>
           </section>
-          <section>
+          <section class="contact">
             <p>contato</p>
             <ul>
                 <li><a href="#">facebook.com/JasonsFood</a></li>
@@ -81,7 +90,7 @@ export default function Home() {
                 
               </ul>
           </section>
-          <section>
+          <section class="jasons-food">
             <p>Jason's food</p>
             <ul>
                 <li><a href="#">Políticas e termos</a></li>
