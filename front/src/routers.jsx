@@ -1,8 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import { Home } from './pages/Home'
-
-import { Home as Home2 } from './pages/site/Home2'
+import { Home as Home_static } from './pages/site/Home_static'
+import { Home } from './pages/site/Home'
 import { ProductsRestaurant } from './pages/site/ProductsRestaurant'
 import { Restaurants } from './pages/site/Restaurants'
 
@@ -15,7 +14,7 @@ function Routers() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/h2" element={<Home2 />} />
+        <Route path="/h2" element={<Home_static />} />
         <Route path="/products" element={<ProductsRestaurant />} />
         <Route path="/restaurants" element={<Restaurants />} />
 

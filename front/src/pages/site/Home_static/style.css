@@ -127,7 +127,7 @@ button {
   transition: 0.3s;
 }
 
-footer {
+/* footer {
   margin-top: 85px;
   display: flex;
   height: 175px;
@@ -154,7 +154,7 @@ footer>section {
 
 footer>section>p {
   font-weight: 600;
-}
+} */
 
 /* Telefones em paisagem e abaixo */
 @media (max-width: 480px) {
