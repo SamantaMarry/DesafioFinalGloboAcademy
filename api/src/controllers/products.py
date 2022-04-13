@@ -1,6 +1,7 @@
 from flask_restful import Resource, reqparse
 from src.server.instance import server
 from src.model.product import ProductModel
+from src.model.restaurant import RestaurantModel
 from src.server.db import db
 
 api = server.api
@@ -16,9 +17,6 @@ class Product(Resource):
         print('Product GET \o/ {}'.format(id))
 
     def put(self, id):
-<<<<<<< Updated upstream
-        print('Product PUT \o/ {}'.format(id))
-=======
         ProductModel.setConnectDataBase(db)
         RestaurantModel.setConnectDataBase(db)
 
@@ -66,7 +64,6 @@ class Product(Resource):
             return {"Error": str(error)}, 400
 
         return None, 200, {"Location": f"{os.getenv('ROOT_URL')}/products/{id}"}
->>>>>>> Stashed changes
 
     def delete(self, id):
         print('Product DELETE \o/ {}'.format(id))
@@ -95,17 +92,10 @@ class ProductList(Resource):
             "price", type=float, required=True, help="price cannot be blank"
         )
         parser.add_argument(
-<<<<<<< Updated upstream
-            "extras", type=str, required=False
-        )
-        parser.add_argument(
-            "id_restaurants", type=int, required=False, help="One restaurant should be informed"
-=======
             "id_restaurant",
             type=int,
             required=True,
             help="One restaurant should be informed",
->>>>>>> Stashed changes
         )
         data = parser.parse_args()
         ###
