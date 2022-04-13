@@ -1,10 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-/* body {
-  width: 100%;
-} */
-
 .c-page-main-site_content {
   width: 100%;
   font-family: 'Montserrat Alternates', sans-serif;
@@ -29,6 +25,43 @@
 
 /* --- */
 
+.c-page-main-site_footer {
+  margin-top: 85px;
+  display: flex;
+  height: 175px;
+  background-color: #060606;
+  justify-content: space-around;
+  align-items: center;
+  color: #FFF;
+
+  width: 100%;
+}
+
+/* .c-page-main-site_footer footer {
+  width: 100%;
+} */
+
+.c-page-main-site_footer>section>ul li>a {
+  font-weight: 200;
+  color: #FFF;
+}
+
+.c-page-main-site_footer>section>ul li>a:hover {
+  color: rgb(180, 180, 180);
+}
+
+.c-page-main-site_footer>section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.c-page-main-site_footer>section>p {
+  font-weight: 600;
+}
+
+/* --- */
+
 #announcements {
   color: white;
   position: absolute;
@@ -36,4 +69,47 @@
   top: 222px;
   font-family: "Montserrat", sans-serif;
   font-size: 50px;
+}
+
+/* --- */
+
+/* Telefones em paisagem e abaixo */
+@media (max-width: 480px) {
+  /* estilos aqui */
+}
+
+/* Telefones em paisagem a tablet em retrato */
+@media (max-width: 767px) {
+  /* estilos aqui */
+}
+
+/* Tablet em retrato a paisagem e desktop */
+@media (min-width: 768px) and (max-width: 979px) {
+  /* estilos aqui */
+}
+
+/* Desktop grande */
+@media (min-width: 1500px) {
+
+  .links-menu ul li>a,
+  .login-area>a,
+  button {
+    font-size: large;
+  }
+
+  #main-content>#search-box>h2,
+  .food-style>h4,
+  .catalogs>h3 {
+    font-size: 76px;
+  }
+
+  #search-box,
+  .catalogs,
+  .food-style {
+    margin-top: 240px;
+  }
+
+  body {
+    height: 230vh;
+  }
 }

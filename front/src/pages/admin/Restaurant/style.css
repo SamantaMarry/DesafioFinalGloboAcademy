@@ -1,9 +1,10 @@
-.c-page-main-site_content {
-  height: 100vh;
-}
+/* body {
+  overflow-y: hidden;
+} */
 
 .c-admin-page-restaurant-cadastro {
-  height: 100%;
+  overflow-x: hidden;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;

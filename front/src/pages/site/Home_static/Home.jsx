@@ -1,4 +1,4 @@
-import './home.css';
+import './style.css';
 import logo from './logo.svg';
 import background from './background.svg';
 import catalog from './catalog.svg';

@@ -1,7 +1,7 @@
 function FooterMain() {
   return (
     <>
-      <footer>
+      <footer className="c-page-main-site_footer">
         <section>
           <p>onde estamos</p>
           <ul>
