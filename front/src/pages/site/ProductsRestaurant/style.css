@@ -8,3 +8,14 @@
 .c-table-list {}
 
 .c-table-list-item {}
+
+.container-card-menu{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 80%;
+  padding: 2rem;
+}
+

@@ -1,22 +1,40 @@
-import { PageMainSite } from "../../../components/PageMainSite"
+import { PageMainSite } from "../../../components/PageMainSite";
+import { useEffect, useState } from "react";
+import api from "../../../services/api";
+
 // import { CardMenu } from "./components/CardMenu"
 
-import './style.css'
+import "./style.css";
+import CardMenu from "./components/CardMenu/CardMenu";
 
 export default function ProductsRestaurant() {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    api.get("/products").then((response) => {
+      setProducts(response.data);
+    });
+  }, []);
   return (
     <>
       <PageMainSite>
-        <div className="c-site-page-products-restaurant" style={{ color: 'white' }}>
+        <div
+          className="c-site-page-products-restaurant"
+          style={{ color: "white" }}
+        >
           <h1>Produtos</h1>
-          <ul className='c-table-list'>
-            <li className='c-table-list-item'>row 1</li>
-            <li className='c-table-list-item'>row 2</li>
-            <li className='c-table-list-item'>row 3</li>
-          </ul>
+          <div className="container-card-menu">
+            {products.map((item) => (
+              <CardMenu className="card-menu"
+                key={item.id}
+                url_image={item.url_image}
+                name={item.name}
+                description={item.description}
+              />
+            ))}
+          </div>
         </div>
       </PageMainSite>
-      {/* <CardMenu /> */}
     </>
-  )
+  );
 }

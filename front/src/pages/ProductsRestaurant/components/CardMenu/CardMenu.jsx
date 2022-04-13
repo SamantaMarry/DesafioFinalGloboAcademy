@@ -3,7 +3,6 @@ import './style.css'
 
 //Props: url_image, name, description
 function CardMenu(props) {
-console.log("🚀 ~ file: CardMenu.jsx ~ line 6 ~ CardMenu ~ props", props)
 
   let url_image = "https://gordaolanches.com.br/wp-content/uploads/lanche-do-gordao-cosmopolis.png"
 
