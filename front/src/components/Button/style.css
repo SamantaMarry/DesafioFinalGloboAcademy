@@ -1,31 +1,15 @@
-.c-page_main-content-all {
-  width: 1300px;
-  height: 100vh;
-  margin: auto;
+.btn {
+  height: 40px;
+  border-radius: 10px;
+  min-width: 100px;
 }
 
-.c-header {
-  background: aquamarine;
-  width: 100%;
-  height: 100px;
-  position: absolute;
-  top: 0;
-  right: 0;
+.btn_orange {
+  background-color: orange;
+  color: #FFF;
 }
 
-.c-page_main-content {
-  /* background-color: bisque; */
-  padding-top: 100px;
-  padding-bottom: 100px;
-  height: 100%;
-
-}
-
-.c-footer {
-  background: #ffab62;
-  width: 100%;
-  height: 100px;
-  position: absolute;
-  bottom: 0;
-  left: 0;
+.btn_black {
+  background-color: #000;
+  color: #FFF;
 }

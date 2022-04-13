@@ -1,0 +1,15 @@
+/* .c-page-main-site_content {
+  height: 100vh;
+} */
+
+/* body {
+  overflow-y: hidden;
+} */
+
+.c-admin-page-products-cadastro {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

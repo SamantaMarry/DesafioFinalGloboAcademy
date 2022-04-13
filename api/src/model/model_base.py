@@ -1,4 +1,5 @@
 from dataclasses import field
+from src.util.list import UtilList
 
 
 class ModelBase:
@@ -52,8 +53,16 @@ class ModelBase:
         cls._db = value
 
     @classmethod
-    def find_all(cls):
+    def find_all(cls, order=""):
+
+        # --
         sql = f"SELECT * FROM {cls.__tablename__}"
+
+        if order:
+            sql_order_by = cls.build_order_by(order)
+            if sql_order_by:
+                sql += f" {sql_order_by}"
+
         res = cls._db.pquey(sql).fetchall()
         return res
 
@@ -63,3 +72,37 @@ class ModelBase:
         res = cls._db.pquey(sql, [id]).fetchone()
 
         return res
+
+    @classmethod
+    def find_by_id_build(cls, id):
+        data = cls.find_by_id(id)
+
+        if not data:
+            return False
+
+        obj = cls()
+        for column in cls.__columns__:
+            setattr(obj, column, data[column])
+
+        return obj
+
+    # order = "name-asc,description-desc"
+    @classmethod
+    def build_order_by(cls, order: str):
+        sql = ""
+        if order:
+            args = order.split(",")
+            if args:
+                cmds = []
+                sql += "ORDER BY "
+                for arg in args:
+                    col = arg.split("-")
+                    fieldOrde = col[0]
+                    typeOrder = UtilList.getValue(col, 1, "")
+
+                    aux = f"{fieldOrde}"
+                    if typeOrder:
+                        aux += f" {typeOrder}"
+                    cmds.append(aux)
+                sql += ", ".join(cmds)
+        return sql

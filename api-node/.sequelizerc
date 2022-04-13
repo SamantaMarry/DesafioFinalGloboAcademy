@@ -1,0 +1,22 @@
+const path = require('path');
+const fs = require('fs');
+// const { exit } = require('process');
+
+let pathEnv
+try {
+  pathEnv = path.resolve(__dirname, `.env.${process.env.NODE_ENV}`);
+  fs.accessSync(pathEnv);
+} catch (err) {
+  pathEnv = path.resolve(__dirname, `.env`);
+}
+
+require('dotenv').config({
+  path: pathEnv,
+});
+
+module.exports = {
+  //config: path.resolve(__dirname, 'src', 'config', 'database.js'),
+  config: path.resolve(__dirname, 'src/config/database.js'),
+  'migrations-path': path.resolve(__dirname, 'src/database/migrations'),
+  'seeders-path': path.resolve(__dirname, 'src/database/seeders'),
+}

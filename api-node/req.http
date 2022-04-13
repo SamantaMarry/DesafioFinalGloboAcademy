@@ -1,0 +1,76 @@
+@baseUrl = http://localhost:3334
+
+###
+
+GET {{baseUrl}}/test HTTP/1.1
+
+### RESTAURANTS ###
+#__columns__ = ("id", "name", "address", "description", "url_image", "responsible_name")
+
+###
+
+GET {{baseUrl}}/restaurants?order=name-asc HTTP/1.1
+
+###
+
+GET {{baseUrl}}/restaurants/1 HTTP/1.1
+
+###
+
+PUT {{baseUrl}}/restaurants/100 HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Sul RR",
+    "address": "Rua 2",
+    "description": "Lorem Ipsum",
+    "url_image":"https://d3m7xw68ay40x8.cloudfront.net/assets/2019/10/23091614/NOV19-charlotte-restaurants-serving-global-fare-hawkers-restaurant-timrobison.jpg",
+    "responsible_name": "Samanta"
+}
+
+###
+
+DELETE {{baseUrl}}/restaurants/14 HTTP/1.1
+
+### PRODUCTS ###
+# __columns__ = ("id", "name", "url_image", "description", "price", "extras", "id_restaurant")
+
+###
+
+GET {{baseUrl}}/products?order=name-asc HTTP/1.1
+
+###
+
+GET {{baseUrl}}/products/8 HTTP/1.1
+
+###
+
+# POST {{baseUrl}}/products/ HTTP/1.1
+# Content-Type: application/json
+
+# {
+#     "name": "X-Tudo - bacon 2",
+#     "url_image":"https://d3m7xw68ay40x8.cloudfront.net/assets/2019/10/23091614/NOV19-charlotte-restaurants-serving-global-fare-hawkers-restaurant-timrobison.jpg",
+#     "description": "Lorem Ipsum 2",
+#     "price": 18.50,
+#     "extras": "Lorem Ipsum 2",
+#     "id_restaurant": 4
+# }
+
+###
+
+PUT {{baseUrl}}/products/5 HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "X-Tudo - bacon",
+    "url_image":"https://d3m7xw68ay40x8.cloudfront.net/assets/2019/10/23091614/NOV19-charlotte-restaurants-serving-global-fare-hawkers-restaurant-timrobison.jpg",
+    "description": "Lorem Ipsum 2",
+    "price": 18.50,
+    "extras": "Lorem Ipsum 2",
+    "id_restaurant": 5
+}
+
+###
+
+DELETE {{baseUrl}}/products/3 HTTP/1.1

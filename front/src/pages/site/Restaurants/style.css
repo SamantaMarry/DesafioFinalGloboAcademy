@@ -1,0 +1,10 @@
+.c-site-page-restaurants {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.c-table-list {}
+
+.c-table-list-item {}
