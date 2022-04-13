@@ -1,4 +1,4 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 body {
@@ -9,28 +9,44 @@ body {
   background-size: cover;
 }
 
+#logo-links {
+  display: flex;
+  align-items: center;
+}
+
 header {
   width: 100%;
   height: 50px;
   display: flex;
-  padding: 55px;
+  padding: 60px;
   justify-content: space-between;
   align-items: center;
 }
 
+ul li {
+  list-style: none;
+}
+
 .links-menu>ul li {
   display: inline;
-  margin-left: 30px;
+  padding: 15px;
   position: relative;
-  right: 160px;
+  right: 75px;
 }
 
 .links-menu ul li>a,
 .login-area>a,
 button {
   color: #FFF;
-  font-size: large;
+  font-size: medium;
   font-weight: 700;
+}
+
+.links-menu ul li>a:hover,
+.login-area>a:hover {
+  font-size: large;
+  transition: 0.3s;
+  color: #FB891F;
 }
 
 a {
@@ -64,34 +80,119 @@ button {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-#search-box {
   margin-top: 85px;
+  color: #FFF;
 }
 
-#main-content>#search-box>h2 {
+#main-content>#search-box>h2,
+.food-style>h4,
+.catalogs>h3 {
   color: #FFF;
-  font-size: 62px;
+  font-size: 56px;
   text-align: center;
 }
 
 #main-content>#search-box>input {
   margin-top: 80px;
   border: none;
-  border-radius: 20.92px;
-  width: 540px;
-  height: 50px;
+  border-radius: 30px;
+  width: 520px;
+  height: 45px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
 }
 
 #main-content>#search-box>button {
   border-radius: 12.1px;
   margin-top: 10px;
   position: relative;
-  left: 210px;
+  left: 200px;
   padding-left: 10px;
   padding-right: 10px;
   font-weight: 600;
+  font-size: large;
 }
 
-#main-content>#catalogs>h3 {} */
+#main-content>#search-box>button:hover {
+  font-size: x-large;
+  transition: 0.3s;
+}
+
+#main-content>.food-style>img {
+  width: 450px;
+}
+
+#main-content>.food-style>img:hover {
+  width: 500px;
+  transition: 0.3s;
+}
+
+footer {
+  margin-top: 85px;
+  display: flex;
+  height: 175px;
+  background-color: #060606;
+  justify-content: space-around;
+  align-items: center;
+  color: #FFF;
+}
+
+footer>section>ul li>a {
+  font-weight: 200;
+  color: #FFF;
+}
+
+footer>section>ul li>a:hover {
+  color: rgb(180, 180, 180);
+}
+
+footer>section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+footer>section>p {
+  font-weight: 600;
+}
+
+/* Telefones em paisagem e abaixo */
+@media (max-width: 480px) {
+  /* estilos aqui */
+}
+
+/* Telefones em paisagem a tablet em retrato */
+@media (max-width: 767px) {
+  /* estilos aqui */
+}
+
+/* Tablet em retrato a paisagem e desktop */
+@media (min-width: 768px) and (max-width: 979px) {
+  /* estilos aqui */
+}
+
+/* Desktop grande */
+@media (min-width: 1500px) {
+
+  .links-menu ul li>a,
+  .login-area>a,
+  button {
+    font-size: large;
+  }
+
+  #main-content>#search-box>h2,
+  .food-style>h4,
+  .catalogs>h3 {
+    font-size: 76px;
+  }
+
+  #search-box,
+  .catalogs,
+  .food-style {
+    margin-top: 240px;
+  }
+
+  body {
+    height: 230vh;
+  }
+}
