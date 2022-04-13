@@ -127,5 +127,5 @@ class RestaurantList(Resource):
             lastid = restaurant.insert().lastrowid
         except Exception as error:
             return {"Error": str(error)}, 400
-        # os.getenv("ROOT_URL")
+   
         return None, 201, {"Location": f"{os.getenv('ROOT_URL')}/restaurants/{lastid}"}

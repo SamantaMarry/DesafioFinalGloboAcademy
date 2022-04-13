@@ -4,6 +4,7 @@ import { CardContent } from "../../../components/CardContent"
 // <Button color="orange" />
 
 import './style.css'
+import Button from './../../../components/Button/Button';
 
 export default function Product() {
   return (
@@ -18,6 +19,7 @@ export default function Product() {
             <div className="c-card-content_right">
               <input type="text" name='url_image' />
               <input type="text" name='price' />
+              <Button title="Salvar">Salvar</Button>
             </div>
           </CardContent>
         </div>
