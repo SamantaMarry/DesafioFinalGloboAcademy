@@ -6,9 +6,9 @@ import api from "../../../services/api";
 import './style.css'
 import Button from './../../../components/Button/Button';
 
+
 export default function Restaurant() {
   const [restaurants, setRestaurants] = useState({
-    id: 0,
     name: "",
     address: "",
     description: "",
@@ -16,19 +16,20 @@ export default function Restaurant() {
     responsible_name: "",
   });
   const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState({});
+
+  useEffect(() => {
+  
+  }, [])
 
   const save = (ev) => {
     ev.preventDefault();
     setLoading(true);
-    api.post("/restaurants", restaurants)
-      .then(response => {
-        setLoading(false);
-        console.log(response);
-      })
-      .catch(error => {
-        setLoading(false);
-        console.log(error);
-      });
+    api.post('/restaurants', restaurants).then(response => {
+      console.log(response.data);
+      setMessage("Restaurante cadastrado com sucesso!");
+    });
+      
   }
   
   
@@ -55,7 +56,7 @@ export default function Restaurant() {
               <input value = {restaurants.address} onChange={changeFild} type="text" name='address' />
               <input value = {restaurants.url_image}onChange={changeFild} type="text" name='url_image' />
               <input value = {restaurants.responsible_name}onChange={changeFild} type="text" name='responsible_name' />
-              <Button title="Salvar" onClick={save}>Salvar</Button>
+            <Button title="Salvar" type="submit" onClick={e=>save(e)}></Button>
             </div>
           </CardContent>
         </div>
