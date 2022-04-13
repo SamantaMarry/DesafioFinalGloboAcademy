@@ -1,8 +1,8 @@
 import { PageMainSite } from "../../../components/PageMainSite"
-
-import './style.css'
 import { useEffect, useState } from "react";
 import api from "../../../services/api";
+
+import './style.css'
 
 export default function Restaurants() {
   const [restaurants, setRestaurants] = useState([]);
@@ -27,7 +27,7 @@ export default function Restaurants() {
                   </div>
                   <div className="c-table-list-item-content">
                     <h1>{item.name}</h1>
-                    <p>{item.description}</p> 
+                    <p>{item.description}</p>
                   </div>
                 </div>
               </li>

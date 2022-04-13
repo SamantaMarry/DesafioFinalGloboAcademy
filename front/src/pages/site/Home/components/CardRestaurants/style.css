@@ -1,0 +1,37 @@
+.c-restaurants-card_content {
+  display: flex;
+  padding: 12px;
+  width: 600px;
+  height: 200px;
+  border-radius: 18px;
+  margin: 10px;
+  background-color: #fff;
+  color: #000;
+
+  justify-content: space-between;
+}
+
+.c-restaurants-card_left {
+  flex-basis: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.c-restaurants-card_right {
+  position: relative;
+  flex-basis: 50%;
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+}
+
+.c-restaurants-card_right button {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.c-restaurants-card_left img {
+  border-radius: 12%;
+}

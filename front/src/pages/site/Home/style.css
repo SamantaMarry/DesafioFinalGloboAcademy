@@ -35,3 +35,16 @@
 }
 
 #main-content>#catalogs>h3 {}
+
+/* -- */
+.c-site-page-restaurants {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.c-restaurants-list {
+  height: 600px;
+  overflow-y: scroll;
+}
