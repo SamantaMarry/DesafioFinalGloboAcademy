@@ -10,7 +10,7 @@ export default function Home() {
         <header>
           <div id="logo-links">
             <div id="logo">
-              <img src={logo}/>
+              <img src={logo} />
             </div>
             <div class="menu">
               <div class="links-menu">
@@ -33,18 +33,18 @@ export default function Home() {
 
             <section id="search-box">
               <h2>Escolha a sua<br />
-               comida favorita.</h2>
+                comida favorita.</h2>
               <input type="text" placeholder="Ex: Tom, The Italian" />
               <button>buscar</button>
             </section>
 
             <section class="food-style">
               <h4>Comida para todo <br />
-               gosto!</h4>
-               <img src={catalog}/>
+                gosto!</h4>
+              <img src={catalog} />
             </section>
 
-    
+
             {/*<section class="catalogs" id="catalog1">
               <h3>Venha para o Jason's Food!</h3>
               <p>Acelere o seu negócio</p>
@@ -71,31 +71,31 @@ export default function Home() {
           <section class="places">
             <p>onde estamos</p>
             <ul>
-                <li><a href="#">recife</a></li>
-                <li><a href="#">joão Pessoa</a></li>
-                <li><a href="#">são paulo</a></li>
-                <li><a href="#">rio de janeiro</a></li>
-                <li><a href="#">belo horizonte</a></li>
-                <li><a href="#">porto alegre</a></li>
-              </ul>
+              <li><a href="#">recife</a></li>
+              <li><a href="#">joão Pessoa</a></li>
+              <li><a href="#">são paulo</a></li>
+              <li><a href="#">rio de janeiro</a></li>
+              <li><a href="#">belo horizonte</a></li>
+              <li><a href="#">porto alegre</a></li>
+            </ul>
           </section>
           <section class="contact">
             <p>contato</p>
             <ul>
-                <li><a href="#">facebook.com/JasonsFood</a></li>
-                <li><a href="#">twitter.com/JasonsFood</a></li>
-                <li><a href="#">instagram.com/JasonsFood</a></li>
-                <li><a href="#">contatojasonsfood@gmail.com</a></li>
-                <li><a href="#">tel:  11 9 9999-9999</a></li>
-                
-              </ul>
+              <li><a href="#">facebook.com/JasonsFood</a></li>
+              <li><a href="#">twitter.com/JasonsFood</a></li>
+              <li><a href="#">instagram.com/JasonsFood</a></li>
+              <li><a href="#">contatojasonsfood@gmail.com</a></li>
+              <li><a href="#">tel:  11 9 9999-9999</a></li>
+
+            </ul>
           </section>
           <section class="jasons-food">
             <p>Jason's food</p>
             <ul>
-                <li><a href="#">Políticas e termos</a></li>
-                <li><a href="#">Sobre o Jason's Food</a></li>
-              </ul>
+              <li><a href="#">Políticas e termos</a></li>
+              <li><a href="#">Sobre o Jason's Food</a></li>
+            </ul>
           </section>
         </footer>
       </body>

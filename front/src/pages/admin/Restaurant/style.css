@@ -1,0 +1,11 @@
+.c-page-main-site_content {
+  height: 100vh;
+}
+
+.c-admin-page-restaurant-cadastro {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

@@ -1,0 +1,65 @@
+#logo {
+  font-family: Montserrat Alternates;
+  font-weight: 300;
+  font-style: italic;
+  color: #fb891f;
+}
+
+#links-navbar {
+  display: flex;
+  position: absolute;
+  top: 0px;
+  left: 257px;
+  list-style: none;
+  padding: 0;
+  max-width: 526px;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  font-family: "Montserrat", sans-serif;
+  font-size: 25px;
+  text-decoration: none;
+}
+
+#login-area {
+  display: flex;
+  position: absolute;
+  left: 1302px;
+  top: 0;
+}
+
+.links-menu>ul li {
+  display: inline;
+  margin-left: 30px;
+  position: relative;
+  right: 160px;
+}
+
+.links-menu ul li>a,
+.login-area>a,
+button {
+  color: #FFF;
+  font-size: large;
+  font-weight: 700;
+}
+
+.login-area>a,
+button {
+  margin-left: 30px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.login-area>button {
+  padding: 12px;
+  border-radius: 9.26px;
+}
+
+img {
+  cursor: pointer;
+}
+
+button {
+  background-color: #FB891F;
+  border: none;
+  cursor: pointer;
+}

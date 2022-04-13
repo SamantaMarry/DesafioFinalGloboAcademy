@@ -1,11 +1,13 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
 import { Home } from './pages/Home'
 
-import { ProductsRestaurant } from './pages/ProductsRestaurant'
-import { Restaurants } from './pages/Restaurants'
+import { Home as Home2 } from './pages/site/Home2'
+import { ProductsRestaurant } from './pages/site/ProductsRestaurant'
+import { Restaurants } from './pages/site/Restaurants'
 
-import { Product } from './pages/admin/Product'
-import { Restaurant } from './pages/admin/Restaurant'
+import { ProductCadastro } from './pages/admin/Product'
+import { RestaurantCadastro } from './pages/admin/Restaurant'
 
 
 function Routers() {
@@ -13,12 +15,13 @@ function Routers() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/h2" element={<Home2 />} />
         <Route path="/products" element={<ProductsRestaurant />} />
         <Route path="/restaurants" element={<Restaurants />} />
 
         {/* admin */}
-        <Route path="/admin/restaurant" element={<Restaurant />} />
-        <Route path="/admin/product" element={<Product />} />
+        <Route path="/admin/restaurant/cadastro" element={<RestaurantCadastro />} />
+        <Route path="/admin/product/cadastro" element={<ProductCadastro />} />
       </Routes>
     </BrowserRouter>
   );
