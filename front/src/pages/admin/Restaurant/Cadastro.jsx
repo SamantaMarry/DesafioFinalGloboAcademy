@@ -42,10 +42,11 @@ export default function Restaurant() {
       <PageMainSite useFooter={false}>
         {message.message && message.message.trim().length > 0 && (
           <div
-            className={`alert-${message.type}`}
+            className={`alert alert-${message.type}`}
             role="alert"
           >
-            {message.message}
+            <p>{message.message}</p>
+            
             <button
               type="button"
               className="close"
