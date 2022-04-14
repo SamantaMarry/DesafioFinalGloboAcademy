@@ -1,5 +1,6 @@
 
 import './style.css'
+import botao from './botao.svg';
 
 //Props: title, children
 function CardContent(props) {
