@@ -57,32 +57,41 @@ export default function Restaurant() {
         <div className="c-admin-page-restaurant-cadastro">
           <CardContent title="Restaurante">
             <div className="c-card-content_left">
+              <label htmlFor="">Nome do restaurante</label>
               <input
                 value={restaurants.name}
                 onChange={changeFild}
                 type="text"
                 name="name"
+                placeholder="Digite o nome do restaurante"
               />
-              <textarea name="description" rows="5" cols="30"></textarea>
+              <label htmlFor="">Descrição</label>
+              <textarea name="description" rows="5" cols="30" placeholder="Descrição"></textarea>
             </div>
             <div className="c-card-content_right">
+              <label htmlFor="">Endereço</label>
               <input
                 value={restaurants.address}
                 onChange={changeFild}
                 type="text"
                 name="address"
+                placeholder="Digite o endereço"
               />
+              <label htmlFor="">Imagem do restaurante</label>
               <input
                 value={restaurants.url_image}
                 onChange={changeFild}
                 type="text"
                 name="url_image"
+                placeholder="Cole a URL da imagem aqui"
               />
+              <label htmlFor="">Nome do responsável</label>
               <input
                 value={restaurants.responsible_name}
                 onChange={changeFild}
                 type="text"
                 name="responsible_name"
+                placeholder="Digite o nome do responsável"
               />
                 <Button
                 title="Salvar"
