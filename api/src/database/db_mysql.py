@@ -1,3 +1,4 @@
+import os
 import mysql.connector
 from mysql.connector import errorcode
 
@@ -6,10 +7,10 @@ class db_mysql:
     def __init__(self) -> None:
         try:
             self._db_connection = mysql.connector.connect(
-                host="localhost",
-                user="root",
-                password="desenv_root",
-                database="jsonsfood",
+                host=os.getenv("DB_HOST"),
+                user=os.getenv("DB_USERNAME"),
+                password=os.getenv("DB_PASSWORD"),
+                database=os.getenv("DB_DATABASE"),
             )
             self._cursor = self._db_connection.cursor(dictionary=True)
         except mysql.connector.Error as error:
