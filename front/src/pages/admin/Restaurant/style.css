@@ -15,4 +15,7 @@ body {
   height: 100vh;
 }
 
-
+span {
+  display: flex;
+  justify-content: center;
+}
