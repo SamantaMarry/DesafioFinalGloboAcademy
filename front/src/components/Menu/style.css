@@ -1,58 +1,43 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
+#logo > img {
+  width: 260px;
+}
+
 .logo-links {
   display: flex;
   align-items: center;
 }
 
-#links-navbar {
-  display: flex;
-  position: absolute;
-  top: 0px;
-  left: 257px;
-  list-style: none;
-  padding: 0;
-  max-width: 526px;
-  width: 100%;
-  justify-content: space-between;
-  align-items: center;
-  font-family: "Montserrat", sans-serif;
-  font-size: 25px;
-  text-decoration: none;
+.login {
+  position: relative;
+  top: 5px;
 }
 
-#login-area {
-  display: flex;
-  position: absolute;
-  left: 1302px;
-  top: 0;
-}
-
-.links-menu>ul li {
+.links-menu > ul li {
   display: inline;
-  
   position: relative;
   right: 100px;
   font-family: 'Montserrat Alternates', sans-serif;
 }
 
-.links-menu ul li>a,
-.login-area>a,
+.links-menu ul li > a,
+.login-area > a,
 button {
   color: #FFF;
   font-size: 16px;
   font-weight: 700;
 }
 
-.login-area>a,
+.login-area > a,
 button {
   margin-left: 30px;
   font-family: 'Montserrat', sans-serif;
 }
 
-.login-area>button {
-  padding: 12px;
+.login-area > button {
+  padding: 9px;
   border-radius: 9.26px;
 }
 
@@ -64,4 +49,11 @@ button {
   background-color: #FB891F;
   border: none;
   cursor: pointer;
+}
+
+button:hover {
+  background-color: #FFF;
+  color: #FB891F;
+  font-size: large;
+  transition: 0.3s;
 }

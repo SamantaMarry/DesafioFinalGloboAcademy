@@ -9,6 +9,7 @@ function Menu() {
   return (
     <>
 
+
       <div class="logo-links">
         <Link to={'/'}>
           <div id="logo">
@@ -45,10 +46,12 @@ function Menu() {
             </nav>
             */}
 
+    <div class="login">
       <div class="login-area">
         <a href="">Entrar</a>
         <button>Cadastrar</button>
       </div>
+    </div>
     </>
   )
 }
