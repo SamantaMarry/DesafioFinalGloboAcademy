@@ -1,5 +1,6 @@
 
 import './style.css'
+import botao from './botao.svg';
 
 //Props: title, children
 function CardContent(props) {
@@ -12,7 +13,6 @@ function CardContent(props) {
         {props.children}
       </div>
       <footer className="c-card-content_footer">
-        + Adicionar mais restaurantes
       </footer>
 
     </div>
