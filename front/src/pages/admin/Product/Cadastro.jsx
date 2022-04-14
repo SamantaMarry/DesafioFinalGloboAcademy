@@ -65,13 +65,13 @@ export default function Product() {
         <div className="c-admin-page-products-cadastro">
           <CardContent title="Produto">
             <div className="c-card-content_left">
-              <label htmlFor="">Nome</label>
+              <label htmlFor="">Nome do produto</label>
               <input
                 value={products.name}
                 onChange={changeField}
                 type="text"
                 name="name"
-                placeholder="Nome"
+                placeholder="Digite o nome do produto"
               />
               <label htmlFor="">Preço</label>
               <input
@@ -79,7 +79,7 @@ export default function Product() {
                 onChange={changeField}
                 type="number"
                 name="price"
-                placeholder="Preço"
+                placeholder="Digite o preço do produto"
               />
               <label htmlFor="">Descrição</label>
               <textarea
@@ -92,13 +92,13 @@ export default function Product() {
               ></textarea>
             </div>
             <div className="c-card-content_right">
-              <label htmlFor="">Url Imagem</label>
+              <label htmlFor="">Imagem do produto</label>
               <input
                 value={products.url_image}
                 onChange={changeField}
                 type="text"
                 name="url_image"
-                placeholder="URL da imagem"
+                placeholder="Cole a URL da imagem aqui"
               />
               <label htmlFor="">Extras</label>
               <input

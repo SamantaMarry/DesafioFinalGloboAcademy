@@ -14,7 +14,6 @@ function CardContent(props) {
       </div>
       <footer className="c-card-content_footer">
       </footer>
-
     </div>
   )
 }

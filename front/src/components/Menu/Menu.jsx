@@ -8,6 +8,11 @@ import { Link } from 'react-router-dom';
 function Menu() {
   return (
     <>
+<<<<<<< HEAD
+      <div id="logo-links">
+        <div id="logo">
+          <img src={logo} />
+=======
     <Link to={'/'}>
     <div id="logo">
         <img src={logo} />
@@ -26,8 +31,18 @@ function Menu() {
             <li><a href="">Cadastre seu Produto</a></li>
             </Link>
           </ul>
+>>>>>>> main
         </div>
+        <nav class="menu">
+          <div class="links-menu">
+            <ul>
+              <li><a href="">Restaurantes</a></li>
+              <li><a href="">Trabalhe conosco</a></li>
+              <li><a href="">Entregas</a></li>
+            </ul>
+          </div>        
       </nav>
+      </div>
       <div class="login-area">
         <a href="">Entrar</a>
         <button>Cadastrar</button>
