@@ -72,7 +72,9 @@ export default function Restaurant() {
               value={restaurants.description} 
               onChange={changeField} 
               name="description" 
-              rows="5" cols="30"></textarea>
+              rows="5" cols="30"
+              placeholder="Descrição"
+              ></textarea>
             </div>
             <div className="c-card-content_right">
               <label htmlFor="">Endereço</label>
