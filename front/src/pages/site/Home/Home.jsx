@@ -1,20 +1,40 @@
+import { useEffect, useState } from "react";
+import api from "../../../services/api";
 import './style.css';
 import catalog from './catalog.svg';
 
 import { PageMainSite } from "../../../components/PageMainSite"
+import { CardRestaurants } from "../Home/components/CardRestaurants"
 
 export default function Home() {
+
+  const [restaurants, setRestaurants] = useState([]);
+
+  useEffect(() => {
+    api.get("/restaurants").then((response) => {
+      console.log(response.data);
+      setRestaurants(response.data);
+    });
+  }, []);
+
   return (
     <>
       <PageMainSite>
         <main>
           <article id="main-content">
-
             <section id="search-box">
-              <h2>Escolha a sua<br />
-                comida favorita.</h2>
-              <input type="text" placeholder="Ex: Tom, The Italian" />
-              <button>buscar</button>
+              <h2>Escolha a sua<br /> comida favorita.</h2>
+              <div className="c-restaurants-list">
+                {restaurants.map((item) => (
+                  <CardRestaurants
+                    key={item.id}
+                    id={item.id}
+                    url_image={item.url_image}
+                    name={item.name}
+                    description={item.description}
+                  />
+                ))}
+              </div>
             </section>
 
             <section class="food-style">
@@ -22,27 +42,6 @@ export default function Home() {
                 gosto!</h4>
               <img src={catalog} />
             </section>
-
-
-            {/*<section class="catalogs" id="catalog1">
-              <h3>Venha para o Jason's Food!</h3>
-              <p>Acelere o seu negócio</p>
-              <ul>
-                <li><a href="#">Lorem Ipsum</a></li>
-                <li><a href="#">Lorem Ipsum</a></li>
-                <li><a href="#">Lorem Ipsum</a></li>
-                <li><a href="#">Lorem Ipsum</a></li>
-              </ul>
-            </section>
-            <section class="catalogs" id="catalog2">
-              <p>Acelere o seu negócio</p>
-              <ul>
-                <li><a href="#">Lorem Ipsum</a></li>
-                <li><a href="#">Lorem Ipsum</a></li>
-                <li><a href="#">Lorem Ipsum</a></li>
-                <li><a href="#">Lorem Ipsum</a></li>
-              </ul>
-            </section>*/}
 
           </article>
         </main>
