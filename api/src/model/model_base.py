@@ -41,11 +41,11 @@ class ModelBase:
             values[column] = self.__dict__[column]
         del values["id"]
 
-        res = self._db.update(self.__tablename__, values, "id=?", [self.id])
+        res = self._db.update(self.__tablename__, values, f"id=%s", [self.id])
         return res
 
     def delete(self):
-        res = self._db.delete(self.__tablename__, "id=?", [self.id])
+        res = self._db.delete(self.__tablename__, f"id=%s", [self.id])
         return res
 
     @classmethod
@@ -68,7 +68,7 @@ class ModelBase:
 
     @classmethod
     def find_by_id(cls, id):
-        sql = f"SELECT * FROM {cls.__tablename__} WHERE id = ? "
+        sql = f"SELECT * FROM {cls.__tablename__} WHERE id = %s "
         res = cls._db.pquey(sql, [id]).fetchone()
 
         return res

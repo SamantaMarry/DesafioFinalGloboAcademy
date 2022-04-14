@@ -14,7 +14,7 @@ app = server.app
 # @app.before_first_request
 # def create_table():
 #     db.create_all()
-db.sql_create_db()
+# db.sql_create_db()
 
 RestaurantController.routes()
 ProductController.routes()

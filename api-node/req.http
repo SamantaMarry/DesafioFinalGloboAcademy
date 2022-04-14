@@ -2,7 +2,7 @@
 
 ###
 
-GET {{baseUrl}}/test HTTP/1.1
+# GET {{baseUrl}}/helth HTTP/1.1
 
 ### RESTAURANTS ###
 #__columns__ = ("id", "name", "address", "description", "url_image", "responsible_name")

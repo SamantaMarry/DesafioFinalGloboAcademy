@@ -25,6 +25,7 @@ class db_sqlite3:
         self._db_connection.commit()
 
     def pquey(self, sql, args=[]):
+        sql = sql.replace(f"%s", "?")
         self._res = self._cursor.execute(sql, args)
         return self._res
 
