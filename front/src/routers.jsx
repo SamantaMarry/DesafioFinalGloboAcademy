@@ -15,7 +15,7 @@ function Routers() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/h2" element={<Home_static />} />
-        <Route path="/products" element={<ProductsRestaurant />} />
+        <Route path="/products/:id_restaurant" element={<ProductsRestaurant />} />
         <Route path="/restaurants" element={<Restaurants />} />
 
         {/* admin */}

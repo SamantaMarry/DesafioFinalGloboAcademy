@@ -75,69 +75,7 @@ class Product(Resource):
         return None, 200, {"Location": f"{os.getenv('ROOT_URL')}/products/{id}"}
 
     def delete(self, id):
-        print('Product DELETE \o/ {}'.format(id))
-
-class ProductList(Resource):
-    def get(self):
-       print('ProductList GET \o/')
-
-    def post(self):
-        ProductModel.setConnectDataBase(db)
-        RestaurantModel.setConnectDataBase(db)
-
-        # --
-        product = ProductModel.find_by_id_build(id)
-        if not product:
-            return None, 204
-
-        # --
-        parser = reqparse.RequestParser()
-        parser.add_argument(
-            "name", type=str, required=True, help="name cannot be blank"
-        )
-        parser.add_argument(
-            "url_image", type=str, required=True, help="url_image cannot be blank"
-        )
-        parser.add_argument("description", type=str, required=False)
-        parser.add_argument(
-            "price", type=float, required=True, help="price cannot be blank"
-        )
-        parser.add_argument("extras", type=str, required=False)
-        parser.add_argument(
-            "id_restaurant",
-            type=int,
-            required=True,
-            help="One restaurant should be informed",
-        )
-        data = parser.parse_args()
-
-        # --
-        restaurant = RestaurantModel.find_by_id(data.id_restaurant)
-        if not restaurant:
-            return {"Error": "Restaurant not exist"}, 404
-
-        # --
-        product.name = data.name
-        product.url_image = data.url_image
-        product.description = data.description
-        product.price = data.price
-        product.id_restaurant = data.id_restaurant
-
-        try:
-            product.update().lastrowid
-        except Exception as error:
-            return {"Error": str(error)}, 400
-
-        return None, 200, {"Location": f"{os.getenv('ROOT_URL')}/products/{id}"}
-
-    def delete(self, id):
-        ProductModel.setConnectDataBase(db)
-        product = ProductModel.find_by_id_build(id)
-        if not product:
-            return {}, 204
-
-        product.delete()
-        return product.to_dict(), 200
+        print("Product DELETE \o/ {}".format(id))
 
 
 class ProductList(Resource):

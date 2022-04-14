@@ -4,6 +4,7 @@ from flask_restful import Resource, reqparse
 from src.server.instance import server
 from src.server.db import db
 from src.model.restaurant import RestaurantModel
+from src.model.product import ProductModel
 
 api = server.api
 
@@ -11,13 +12,15 @@ api = server.api
 class RestaurantController(Resource):
     @classmethod
     def routes(self):
+        api.add_resource(
+            RestaurantProductList, "/restaurants/<int:id_restaurant>/product"
+        )
         api.add_resource(Restaurant, "/restaurants/<int:id>")
         api.add_resource(RestaurantList, "/restaurants")
 
 
 class Restaurant(Resource):
     def get(self, id):
-        RestaurantModel.setConnectDataBase(db)
         RestaurantModel.setConnectDataBase(db)
         restaurant = RestaurantModel.find_by_id(id)
         if not restaurant:
@@ -127,5 +130,19 @@ class RestaurantList(Resource):
             lastid = restaurant.insert().lastrowid
         except Exception as error:
             return {"Error": str(error)}, 400
-   
+
         return None, 201, {"Location": f"{os.getenv('ROOT_URL')}/restaurants/{lastid}"}
+
+
+class RestaurantProductList(Resource):
+    def get(self, id_restaurant):
+        ProductModel.setConnectDataBase(db)
+
+        order = request.args.get("order", default="", type=str)
+        try:
+            products = ProductModel.find_all_prodcts_restaurant_id(
+                id_restaurant, order=order
+            )
+        except Exception as error:
+            return {"Error": str(error)}, 400
+        return products

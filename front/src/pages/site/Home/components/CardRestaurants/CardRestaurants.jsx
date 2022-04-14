@@ -1,4 +1,5 @@
 
+import { Link } from "react-router-dom";
 import Button from '../../../../../components/Button/Button';
 import './style.css'
 
@@ -6,7 +7,6 @@ import './style.css'
 function CardMenu(props) {
 
   let url_image = props.url_image ?? "https://gordaolanches.com.br/wp-content/uploads/lanche-do-gordao-cosmopolis.png"
-
 
   return (
     <div className="c-restaurants-card_content">
@@ -18,7 +18,11 @@ function CardMenu(props) {
         <p><b>Descrição:</b> <br /> {props.description || "Sem descrição."}</p>
         <p><b>Endereço:</b> <br /> {props.address || "Sem Endereço."}</p>
         <p><b>Responsável:</b> <br /> {props.responsible_name || "Sem responsável."}</p>
-        <Button title="Conhecer" />
+
+        <Link to={`/products/${props.id}`}>
+          <Button title="Conhecer" />
+        </Link>
+
       </div>
     </div>
   )

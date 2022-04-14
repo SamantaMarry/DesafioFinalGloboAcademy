@@ -1,17 +1,24 @@
+// import { useSearchParams } from "react-router-dom";
 import { PageMainSite } from "../../../components/PageMainSite";
 import { useEffect, useState } from "react";
 import api from "../../../services/api";
 
+import { useQuery } from '../../../hooks/useQuery'
+
 // import { CardMenu } from "./components/CardMenu"
 
-import "./style.css";
+import { useParams, useLocation, Outlet } from 'react-router-dom';
 import CardMenu from "./components/CardMenu/CardMenu";
+import "./style.css";
 
-export default function ProductsRestaurant() {
+export default function ProductsRestaurant(props) {
   const [products, setProducts] = useState([]);
 
+  const { id_restaurant } = useParams();
+
   useEffect(() => {
-    api.get("/products").then((response) => {
+    //restaurants/<int:id_restaurant>/product
+    api.get(`restaurants/${id_restaurant}/product`).then((response) => {
       setProducts(response.data);
     });
   }, []);

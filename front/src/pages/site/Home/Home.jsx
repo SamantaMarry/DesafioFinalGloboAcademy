@@ -28,6 +28,7 @@ export default function Home() {
                 {restaurants.map((item) => (
                   <CardRestaurants
                     key={item.id}
+                    id={item.id}
                     url_image={item.url_image}
                     name={item.name}
                     description={item.description}

@@ -39,6 +39,10 @@ Content-Type: application/json
 
 DELETE {{baseUrl}}/restaurants/3 HTTP/1.1
 
+###
+
+GET {{baseUrl}}/restaurants/1/product HTTP/1.1
+
 ### PRODUCTS ###
 # __columns__ = ("id", "name", "url_image", "description", "price", "extras", "id_restaurant")
 
