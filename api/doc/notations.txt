@@ -37,3 +37,9 @@ Links:
 
   [f-string Formatting in Python]
   - https://www.datacamp.com/community/tutorials/f-string-formatting-in-python?utm_source=adwords_ppc&utm_medium=cpc&utm_campaignid=1455363063&utm_adgroupid=65083631748&utm_device=c&utm_keyword=&utm_matchtype=&utm_network=g&utm_adpostion=&utm_creative=278443377095&utm_targetid=aud-299261629574:dsa-429603003980&utm_loc_interest_ms=&utm_loc_physical_ms=1001655&gclid=Cj0KCQjwxtSSBhDYARIsAEn0thSVd57YeIAujRzS0sQlrQ3-nDHVmNb8AkTbAy2vjYL77lsAOHg1bTcaAsGFEALw_wcB
+
+
+
+## Docker ###
+docker build -t teste_python .
+docker run -d -p 5000:5000 --name tt_python teste_python
