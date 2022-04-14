@@ -13,7 +13,6 @@ class Product extends Model {
         allowNull: false,
         validate: {
           notEmpty: true,
-          is: /^[A-Za-z\s]+$/i
         }
       },
       url_image: {

@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=dev nodemon --inspect src/server.js"
+    "start": "cross-env NODE_ENV=dev nodemon --inspect src/server.js",
+    "start:prod": "cross-env NODE_ENV=prod node src/server.js"
   },
   "repository": {
     "type": "git",
