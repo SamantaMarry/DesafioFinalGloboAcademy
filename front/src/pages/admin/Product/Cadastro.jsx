@@ -50,8 +50,8 @@ export default function Product() {
     <>
       <PageMainSite useFooter={false}>
         {message.message && message.message.trim().length > 0 && (
-          <div className={`alert-${message.type}`} role="alert">
-            {message.message}
+          <div className={` alert alert-${message.type}`} role="alert">
+            <p>{message.message}</p>
             <button
               type="button"
               className="close"
