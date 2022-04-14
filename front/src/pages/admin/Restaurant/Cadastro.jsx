@@ -17,6 +17,8 @@ export default function Restaurant() {
   const [message, setMessage] = useState({});
 
   useEffect(() => {
+    console.log("🚀 ~ file: Cadastro.jsx ~ line 28 ~ api.post ~ restaurants", restaurants)
+
   
   }, [])
 
@@ -28,7 +30,7 @@ export default function Restaurant() {
       
   }
 
-  const changeFild = (ev) => {
+  const changeField = (ev) => {
     const newRestaurant = { ...restaurants };
     const { name, value } = ev.currentTarget;
     newRestaurant[name] = value;
@@ -59,28 +61,32 @@ export default function Restaurant() {
             <div className="c-card-content_left">
               <input
                 value={restaurants.name}
-                onChange={changeFild}
+                onChange={changeField}
                 type="text"
                 name="name"
               />
-              <textarea name="description" rows="5" cols="30"></textarea>
+              <textarea 
+              value={restaurants.description} 
+              onChange={changeField} 
+              name="description" 
+              rows="5" cols="30"></textarea>
             </div>
             <div className="c-card-content_right">
               <input
                 value={restaurants.address}
-                onChange={changeFild}
+                onChange={changeField}
                 type="text"
                 name="address"
               />
               <input
                 value={restaurants.url_image}
-                onChange={changeFild}
+                onChange={changeField}
                 type="text"
                 name="url_image"
               />
               <input
                 value={restaurants.responsible_name}
-                onChange={changeFild}
+                onChange={changeField}
                 type="text"
                 name="responsible_name"
               />
