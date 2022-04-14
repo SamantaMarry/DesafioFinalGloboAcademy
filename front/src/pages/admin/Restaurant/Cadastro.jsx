@@ -17,6 +17,8 @@ export default function Restaurant() {
   const [message, setMessage] = useState({});
 
   useEffect(() => {
+    console.log("🚀 ~ file: Cadastro.jsx ~ line 28 ~ api.post ~ restaurants", restaurants)
+
   
   }, [])
 
@@ -28,7 +30,7 @@ export default function Restaurant() {
       
   }
 
-  const changeFild = (ev) => {
+  const changeField = (ev) => {
     const newRestaurant = { ...restaurants };
     const { name, value } = ev.currentTarget;
     newRestaurant[name] = value;
@@ -60,19 +62,23 @@ export default function Restaurant() {
               <label htmlFor="">Nome do restaurante</label>
               <input
                 value={restaurants.name}
-                onChange={changeFild}
+                onChange={changeField}
                 type="text"
                 name="name"
                 placeholder="Digite o nome do restaurante"
               />
               <label htmlFor="">Descrição</label>
-              <textarea name="description" rows="5" cols="30" placeholder="Descrição"></textarea>
+              <textarea 
+              value={restaurants.description} 
+              onChange={changeField} 
+              name="description" 
+              rows="5" cols="30"></textarea>
             </div>
             <div className="c-card-content_right">
               <label htmlFor="">Endereço</label>
               <input
                 value={restaurants.address}
-                onChange={changeFild}
+                onChange={changeField}
                 type="text"
                 name="address"
                 placeholder="Digite o endereço"
@@ -80,7 +86,7 @@ export default function Restaurant() {
               <label htmlFor="">Imagem do restaurante</label>
               <input
                 value={restaurants.url_image}
-                onChange={changeFild}
+                onChange={changeField}
                 type="text"
                 name="url_image"
                 placeholder="Cole a URL da imagem aqui"
@@ -88,7 +94,7 @@ export default function Restaurant() {
               <label htmlFor="">Nome do responsável</label>
               <input
                 value={restaurants.responsible_name}
-                onChange={changeFild}
+                onChange={changeField}
                 type="text"
                 name="responsible_name"
                 placeholder="Digite o nome do responsável"

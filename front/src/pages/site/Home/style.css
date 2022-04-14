@@ -45,6 +45,26 @@
 }
 
 .c-restaurants-list {
-  height: 600px;
-  overflow-y: scroll;
+  max-height: 600px;
+   overflow-y: auto;
+  scroll-behavior: smooth;
+              /* width of the entire scrollbar */
+  }
+  
+
+  
+  .c-restaurants-list::-webkit-scrollbar-thumb {
+    background-color: blue;    /* color of the scroll thumb */
+    border-radius: 20px;       /* roundness of the scroll thumb */
+    border: 3px solid orange;  /* creates padding around scroll thumb */
+  }
+  .c-restaurants-list::-webkit-scrollbar-track {
+    background-color: #F4F4F4;
+}
+.c-restaurants-list::-webkit-scrollbar {
+    width: 6px;
+    background: #F4F4F4;
+}
+.c-restaurants-list::-webkit-scrollbar-thumb {
+    background: #dad7d7;
 }

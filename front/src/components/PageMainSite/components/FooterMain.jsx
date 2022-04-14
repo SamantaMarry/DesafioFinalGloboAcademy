@@ -3,24 +3,24 @@ function FooterMain() {
     <>
       <footer className="c-page-main-site_footer">
         <section>
-          <p>onde estamos</p>
+          <p>Onde estamos</p>
           <ul>
-            <li><a href="#">recife</a></li>
-            <li><a href="#">joão Pessoa</a></li>
-            <li><a href="#">são paulo</a></li>
-            <li><a href="#">rio de janeiro</a></li>
-            <li><a href="#">belo horizonte</a></li>
-            <li><a href="#">porto alegre</a></li>
+            <li><a href="#">Recife/PE</a></li>
+            <li><a href="#">João Pessoa/PB</a></li>
+            <li><a href="#">São Paulo/SP</a></li>
+            <li><a href="#">Rio de Janeiro/RJ</a></li>
+            <li><a href="#">Belo Horizonte/BH</a></li>
+            <li><a href="#">Porto Alegre/RS</a></li>
           </ul>
         </section>
         <section>
-          <p>contato</p>
+          <p>Contato</p>
           <ul>
-            <li><a href="#">facebook.com/JasonsFood</a></li>
-            <li><a href="#">twitter.com/JasonsFood</a></li>
-            <li><a href="#">instagram.com/JasonsFood</a></li>
+            <li><a href="#">Facebook.com/JasonsFood</a></li>
+            <li><a href="#">Twitter.com/JasonsFood</a></li>
+            <li><a href="#">Instagram.com/JasonsFood</a></li>
             <li><a href="#">contatojasonsfood@gmail.com</a></li>
-            <li><a href="#">tel:  11 9 9999-9999</a></li>
+            <li><a href="#">Tel:  11 9 9999-9999</a></li>
           </ul>
         </section>
         <section>
