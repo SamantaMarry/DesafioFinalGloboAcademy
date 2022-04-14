@@ -4,6 +4,8 @@ load_dotenv()
 
 from src.server.instance import server
 from src.server.db import db
+from flask_pydantic_spec import FlaskPydanticSpec
+
 
 from src.controllers.restaurants import RestaurantController
 from src.controllers.products import ProductController
@@ -15,6 +17,9 @@ app = server.app
 # def create_table():
 #     db.create_all()
 # db.sql_create_db()
+
+spec = FlaskPydanticSpec('FlaskPydanticSpec', title='JasonsFood')
+spec.register(app)
 
 RestaurantController.routes()
 ProductController.routes()
