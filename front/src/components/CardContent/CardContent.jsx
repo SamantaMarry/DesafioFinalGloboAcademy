@@ -12,7 +12,6 @@ function CardContent(props) {
         {props.children}
       </div>
       <footer className="c-card-content_footer">
-        + Adicionar mais restaurantes
       </footer>
 
     </div>
