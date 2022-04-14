@@ -1,15 +1,34 @@
 const express = require('express');
 const router = express.Router();
 const RestaurantModel = require('#src/models/Restaurant');
+const PaginationClass = require('#src/class/Pagination');
 
 module.exports = {
 
   routes() {
     // router.post('/', this.create);
+    router.get('/', this.index);
     router.get('/:id', this.get);
     router.put('/:id', this.update);
     router.delete('/:id', this.delete);
     return router;
+  },
+
+  async index(req, res) {
+
+    try {
+
+      const page = req.query.page || 1;
+
+      const Pagination = new PaginationClass(RestaurantModel);
+      const result = await Pagination.select(page);
+
+      return res.json({ data: result });
+
+    } catch (e) {
+      return res.status(400).json({ error: e });
+    }
+
   },
 
   async get(req, res) {
