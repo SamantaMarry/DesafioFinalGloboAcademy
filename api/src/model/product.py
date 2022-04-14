@@ -31,7 +31,7 @@ class ProductModel(ModelBase):
     def find_all_prodcts_restaurant_id(cls, id, order=""):
 
         # --
-        sql = f"SELECT * FROM {cls.__tablename__} WHERE id_restaurant = ? "
+        sql = f"SELECT * FROM {cls.__tablename__} WHERE id_restaurant = %s "
 
         if order:
             sql_order_by = cls.build_order_by(order)

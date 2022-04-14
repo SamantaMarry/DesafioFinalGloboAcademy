@@ -1,17 +1,19 @@
 @baseUrl = http://localhost:5000
 
+###################
 ### RESTAURANTS ###
+###################
 #__columns__ = ("id", "name", "address", "description", "url_image", "responsible_name")
 
 POST {{baseUrl}}/restaurants HTTP/1.1
 Content-Type: application/json
+
 {
-    "name": "B18",
-    "url_image": "Lorem Ipsulom",
-    "description": "Action",
-    "price": 2,
-    "extras": 2010,
-    "id_restaurant": 2010
+  "name": "Sul R",
+  "address": "Rua 2",
+  "description": "Lorem Ipsum",
+  "url_image":"https://d3m7xw68ay40x8.cloudfront.net/assets/2019/10/23091614/NOV19-charlotte-restaurants-serving-global-fare-hawkers-restaurant-timrobison.jpg",
+  "responsible_name": "Samanta"
 }
 
 ###
@@ -43,7 +45,9 @@ DELETE {{baseUrl}}/restaurants/3 HTTP/1.1
 
 GET {{baseUrl}}/restaurants/1/product HTTP/1.1
 
+################
 ### PRODUCTS ###
+################
 # __columns__ = ("id", "name", "url_image", "description", "price", "extras", "id_restaurant")
 
 POST {{baseUrl}}/products HTTP/1.1
@@ -64,6 +68,7 @@ Content-Type: application/json
 
 DELETE {{baseUrl}}/products/3 HTTP/1.1
 
+###
 
 GET {{baseUrl}}/products?order=name-asc HTTP/1.1
 
@@ -88,4 +93,3 @@ Content-Type: application/json
 ###
 
 DELETE {{baseUrl}}/products/3 HTTP/1.1
-
