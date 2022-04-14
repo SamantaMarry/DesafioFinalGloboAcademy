@@ -23,7 +23,7 @@ export default function Home() {
         <main>
           <article id="main-content">
             <section id="search-box">
-              <h2>Escolha a sua<br /> comida favorita.</h2>
+              <h2>Escolha seu <br /> restaurante favorito.</h2>
               <div className="c-restaurants-list">
                 {restaurants.map((item) => (
                   <CardRestaurants
