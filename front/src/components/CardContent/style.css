@@ -4,6 +4,7 @@
 .c-card-content_content {
   background-color: white;
   border-radius: 30px;
+  border: solid 1px black;
   font-family: 'Montserrat', sans-serif;
   width: 649px;
   height: 518px;

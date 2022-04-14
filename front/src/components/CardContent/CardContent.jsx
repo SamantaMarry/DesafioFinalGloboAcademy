@@ -13,9 +13,6 @@ function CardContent(props) {
         {props.children}
       </div>
       <footer className="c-card-content_footer">
-      <button class="btn-adc">+</button>
-      <p>Adicionar mais <br />
-       produtos</p>
       </footer>
 
     </div>
