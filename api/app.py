@@ -16,9 +16,11 @@ app = server.app
 # @app.before_first_request
 # def create_table():
 #     db.create_all()
+
+# only create database
 # db.sql_create_db()
 
-spec = FlaskPydanticSpec('FlaskPydanticSpec', title='JasonsFood')
+spec = FlaskPydanticSpec("FlaskPydanticSpec", title="JasonsFood")
 spec.register(app)
 
 RestaurantController.routes()
