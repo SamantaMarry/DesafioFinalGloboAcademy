@@ -1,0 +1,2 @@
+docker build -t teste_node .
+docker run -d -p 3334:3334 --name tt_node teste_node
