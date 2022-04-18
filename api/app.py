@@ -13,9 +13,9 @@ from src.controllers.products import ProductController
 app = server.app
 
 
-# @app.before_first_request
-# def create_table():
-#     db.create_all()
+@app.before_first_request
+def create_table():
+    db.sql_create_db()
 
 # only create database
 # db.sql_create_db()

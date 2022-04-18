@@ -43,3 +43,5 @@ Links:
 ## Docker ###
 docker build -t teste_python .
 docker run -d -p 5000:5000 --name tt_python teste_python
+## criar volume
+docker volume create mysql-db

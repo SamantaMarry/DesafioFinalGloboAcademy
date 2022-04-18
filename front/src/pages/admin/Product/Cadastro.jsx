@@ -114,7 +114,9 @@ export default function Product() {
                 name="id_restaurant"
                 value={selectedRestaurant}
                 onChange={changeField}
+                
               >
+                <option>Selecionar</option>
                 {restaurants.map((restaurant) => (
                   <option key={restaurant.id} value={restaurant.id}>
                     {restaurant.name}
