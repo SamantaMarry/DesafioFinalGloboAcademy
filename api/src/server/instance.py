@@ -10,6 +10,7 @@ class Server:
         self.app = Flask(__name__)
         self.api = Api(self.app)
         self.cors = CORS(self.app)
+        # self.cors = CORS(self.app, resources={r"*": {"origins": "*"}})
 
     def run(
         self,

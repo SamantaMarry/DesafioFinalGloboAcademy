@@ -9,7 +9,7 @@ function CardMenu(props) {
   return (
     <div className="c-card-menu_content">
       <div className="c-card-menu_left">
-        <img src={props.url_image || url_image} alt="SEM IMAGEM" srcset="" />
+        <img src={props.url_image || url_image} alt="SEM IMAGEM" />
       </div>
       <div className="c-card-menu_right">
         <h1>{props.name || "IgorFoods"}</h1>

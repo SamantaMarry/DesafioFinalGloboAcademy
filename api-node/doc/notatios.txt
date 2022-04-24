@@ -1,2 +1,2 @@
-docker build -t teste_node .
-docker run -d -p 3334:3334 --name tt_node teste_node
+docker build -t jsonfood_api_node .
+docker run -d -p 3334:3334 --name jsonfood_api_node jsonfood_api_node

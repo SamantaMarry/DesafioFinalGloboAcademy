@@ -23,7 +23,7 @@ module.exports = {
       const Pagination = new PaginationClass(RestaurantModel);
       const result = await Pagination.select(page);
 
-      return res.json({ data: result });
+      return res.json(result.rows);
 
     } catch (e) {
       return res.status(400).json({ error: e });

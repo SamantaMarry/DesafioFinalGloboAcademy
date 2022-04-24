@@ -12,8 +12,8 @@ export default function Home() {
             <div id="logo">
               <img src={logo} />
             </div>
-            <div class="menu">
-              <div class="links-menu">
+            <div className="menu">
+              <div className="links-menu">
                 <ul>
                   <li><a href="">Restaurantes</a></li>
                   <li><a href="">Trabalhe conosco</a></li>
@@ -22,7 +22,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div class="login-area">
+          <div className="login-area">
             <a href="">Entrar</a>
             <button>Cadastrar</button>
           </div>
@@ -38,14 +38,14 @@ export default function Home() {
               <button>buscar</button>
             </section>
 
-            <section class="food-style">
+            <section className="food-style">
               <h4>Comida para todo <br />
                 gosto!</h4>
               <img src={catalog} />
             </section>
 
 
-            {/*<section class="catalogs" id="catalog1">
+            {/*<section className="catalogs" id="catalog1">
               <h3>Venha para o Jason's Food!</h3>
               <p>Acelere o seu negócio</p>
               <ul>
@@ -55,7 +55,7 @@ export default function Home() {
                 <li><a href="#">Lorem Ipsum</a></li>
               </ul>
             </section>
-            <section class="catalogs" id="catalog2">
+            <section className="catalogs" id="catalog2">
               <p>Acelere o seu negócio</p>
               <ul>
                 <li><a href="#">Lorem Ipsum</a></li>
@@ -68,7 +68,7 @@ export default function Home() {
           </article>
         </main>
         <footer>
-          <section class="places">
+          <section className="places">
             <p>onde estamos</p>
             <ul>
               <li><a href="#">recife</a></li>
@@ -79,7 +79,7 @@ export default function Home() {
               <li><a href="#">porto alegre</a></li>
             </ul>
           </section>
-          <section class="contact">
+          <section className="contact">
             <p>contato</p>
             <ul>
               <li><a href="#">facebook.com/JasonsFood</a></li>
@@ -90,7 +90,7 @@ export default function Home() {
 
             </ul>
           </section>
-          <section class="jasons-food">
+          <section className="jasons-food">
             <p>Jason's food</p>
             <ul>
               <li><a href="#">Políticas e termos</a></li>

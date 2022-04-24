@@ -23,7 +23,7 @@ export default function Restaurants() {
               <li key={item.id}>
                 <div className="c-table-list-item">
                   <div className="c-table-list-item-image">
-                    <img src={item.url_image} alt="SEM IMAGEM" srcset="" />
+                    <img src={item.url_image} alt="SEM IMAGEM" />
                   </div>
                   <div className="c-table-list-item-content">
                     <h1>{item.name}</h1>

@@ -8,7 +8,8 @@
   background-position: center;
   background-size: cover;
 
-  font: 14px/1.4 Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  /* font: 14px/1.4 Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif; */
+  font: 14px/1.4 "Helvetica Neue", Helvetica, Arial, sans-serif;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   height: 100%;

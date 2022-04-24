@@ -1,13 +1,33 @@
 import sqlite3
 from sqlite3 import Error
 
-
+# https://docs.python.org/3.8/library/sqlite3.html#sqlite3.Connection.set_trace_callback
+# https://www.digitalocean.com/community/tutorials/how-to-use-the-sqlite3-module-in-python-3
+# https://www.tutorialspoint.com/sqlite/sqlite_python.htm
+# https://zetcode.com/python/sqlite/
+# https://likegeeks.com/python-sqlite3-tutorial/#:~:text=To%20use%20SQLite3%20in%20Python,us%20execute%20the%20SQL%20statements.&text=That%20will%20create%20a%20new,db'.
 class db_sqlite3:
-    def __init__(self) -> None:
-        self._db_connection = sqlite3.connect("jsonsfood.db", check_same_thread=False)
-        # self._db_connection.row_factory = sqlite3.Row
-        self._db_connection.row_factory = self.dict_factory
-        self._cursor = self._db_connection.cursor()
+    def __init__(self, database):
+        self.__database = database
+        self.__conn = None
+        self.__cursor = None
+        self.__open_connection()
+
+    def __open_connection(self):
+
+        try:
+            if self.__conn is None:
+                self.__conn = sqlite3.connect(
+                    f"{self.__database}.db", check_same_thread=False
+                )
+                self.__conn.row_factory = self.dict_factory
+
+                self.__conn.row_factory = self.dict_factory
+                self.__cursor = self.__conn.cursor()
+
+        except sqlite3.Error as err:
+            print("Sql error: %s" % (" ".join(err.args)))
+            print("Exception class is: ", err.__class__)
 
     # Convert query result in dictionary
     def dict_factory(self, cursor, row):
@@ -17,22 +37,59 @@ class db_sqlite3:
         return d
 
     def __del__(self) -> None:
-        self._db_connection.close()
+        self.__conn.close()
 
-    # --
+    def pquey(self, query, args=[]):
+        query = query.replace(f"%s", "?")
+        try:
+            if not query or not isinstance(query, str):
+                raise Exception("Query should be string")
+
+            if not self.__conn:
+                self.__open_connection()
+
+            self.__cursor.execute(query, args)
+
+            # print("Last Query: {}".format(self.__cursor.statement))
+
+            return self
+
+        except Exception as e:
+            raise Exception(
+                # cursor.fetchwarnings()
+                f"An exception occured due to: {e}"
+            )
+
+    def get_cursor(self):
+        return self.__cursor
+
+    def pquey_result(self, query, args=None):
+        self.pquey(query, args)
+        return self.fetchall()
+
+    def fetchone(self):
+        return self.__cursor.fetchone()
+
+    def fetchall(self):
+        return self.__cursor.fetchall()
+
+    def fetchmany(self, size=None):
+        return self.__cursor.fetchmany(size)
+
+    def last_id(self):
+        return self.__cursor.lastrowid
+
+    def rollback(self):
+        return self.__conn.rollback()
 
     def commit(self):
-        self._db_connection.commit()
+        return self.__conn.commit()
 
-    def pquey(self, sql, args=[]):
-        sql = sql.replace(f"%s", "?")
-        self._res = self._cursor.execute(sql, args)
-        return self._res
+    # def close_cursor(self) -> None:
+    #     self.__cursor.close()
 
-    def pquey_commit(self, sql, args=[]):
-        res = self.pquey(sql, args)
-        self._db_connection.commit()
-        return res
+    def close_connect(self) -> None:
+        self.__conn.close()
 
     def insert(self, table, values):
         fields = []
@@ -40,7 +97,7 @@ class db_sqlite3:
         args = []
         for field, value in values.items():
             fields.append(field)
-            parms_bind.append("?")
+            parms_bind.append("%s")
             args.append(value)
 
         # ','.join(str(v) for v in fields)
@@ -51,7 +108,7 @@ class db_sqlite3:
             INSERT INTO {table} ({fields_insert})
             VALUES ({binds_insert})
         """
-        res = self.pquey_commit(sql, args)
+        res = self.pquey(sql, args)
 
         return res
 
@@ -59,7 +116,7 @@ class db_sqlite3:
         fields = []
         args_values = []
         for field, value in values.items():
-            fields.append(f"{field} = ?")
+            fields.append(f"{field} = %s")
             args_values.append(value)
 
         fields_insert = ", ".join(fields)
@@ -70,7 +127,7 @@ class db_sqlite3:
             WHERE 1=1 AND {where}
         """
 
-        res = self.pquey_commit(sql, args)
+        res = self.pquey(sql, args)
         return res
 
     def delete(self, table, where, args=[]):
@@ -78,63 +135,6 @@ class db_sqlite3:
             DELETE FROM {table}
             WHERE 1=1 AND {where}
         """
-
-        res = self.pquey_commit(sql, args)
+        res = self.pquey(sql, args)
 
         return res
-
-    def sql_create_db(self):
-        sqls = [
-            """
-            CREATE TABLE IF NOT EXISTS restaurants (
-              id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-              name TEXT NOT NULL,
-              address TEXT NOT NULL,
-              description TEXT NULL,
-              url_image TEXT NOT NULL,
-              responsible_name TEXT NOT NULL
-            );
-          """,
-            """
-            CREATE TABLE IF NOT EXISTS products (
-              id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-              name TEXT NOT NULL,
-              url_image TEXT NOT NULL,
-              description TEXT NULL,
-              price NUMERIC NOT NULL,
-              extras TEXT NULL,
-              id_restaurant INTEGER NOT NULL,
-              CONSTRAINT FK_products_restaurants FOREIGN KEY (id_restaurant)
-                REFERENCES restaurants (id)
-            );
-          """,
-            """INSERT INTO restaurants (name, address, description, url_image, responsible_name) VALUES('Bevin Valentim', '44710 Springs Point', 'French', 'https://www.collinsdictionary.com/images/full/restaurant_135621509.jpg', 'Amandie Ramble');""",
-            """INSERT INTO restaurants (name, address, description, url_image, responsible_name) VALUES('Beau Lofts', '57847 Maywood Trail', 'Italian', 'https://media-cdn.tripadvisor.com/media/photo-s/13/a2/cc/04/amore-s-italian-restaurant.jpg', 'Delano Campbell');""",
-            """INSERT INTO restaurants (name, address, description, url_image, responsible_name) VALUES('Martica Ashingden', '6004 Dexter Alley', 'Mexican', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCr0bvXRKKet3oHEedvaR6xyn8fQreOtKf8A&usqp=CAU', 'Milzie Ollerhead');""",
-            """INSERT INTO restaurants (name, address, description, url_image, responsible_name) VALUES('Maxy Allom', '92877 Dakota Terrace', 'Fast food', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCr0bvXRKKet3oHEedvaR6xyn8fQreOtKf8A&usqp=CAU', 'Saunderson Neissen');""",
-            """INSERT INTO restaurants (name, address, description, url_image, responsible_name) VALUES('Ealasaid Setterthwait', '69606 Paget Park', 'Italian', 'https://cf.bstatic.com/data/xphoto/1182x887/222/22281452.jpg?size=S', 'Alano Klampk');""",
-            """INSERT INTO restaurants (name, address, description, url_image, responsible_name) VALUES('Elle Karmel', '57936 Ryan Court', 'Japanese', 'https://anaclaudiathorpe.ne10.uol.com.br/wp-content/uploads/2021/05/F50A0085-7C08-4357-91E8-F81E5A7CCCA7.jpeg', 'Justen Swalough');""",
-            """INSERT INTO restaurants (name, address, description, url_image, responsible_name) VALUES('Rachele Wynn', '5997 Blue Bill Park Road', 'Street Food', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbLnIvX_FA7C6XqHkQKRfKl6JxLCUMa-rJqw&usqp=CAU', 'Duncan Brogiotti');""",
-            """INSERT INTO restaurants (name, address, description, url_image, responsible_name) VALUES('Jeremiah Gierck', '9 Monterey Junction', 'Brazilian', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSCLxhQ7SXE9DscoWxgs7oM0SLLVzPCPdb2g&usqp=CAU', 'Carmine Shutle');""",
-            """INSERT INTO restaurants (name, address, description, url_image, responsible_name) VALUES('Gertrude Scherer', '69 Crownhardt Terrace', 'Japanese', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzP40Iwi8cdE6zDM3rtRit3VJqDQCajyGecw&usqp=CAU', 'Morris Wheaton');""",
-            """INSERT INTO restaurants (name, address, description, url_image, responsible_name) VALUES('Courtney Winterflood', '4069 Brown Hill', 'French', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHTwxxtgW2W84s--p5NDlHrdaL4ZdEo_aP-A&usqp=CAU', 'Remington Dunklee');""",
-            """INSERT INTO restaurants (name, address, description, url_image, responsible_name) VALUES('Moina Luquet', '5037 Pearson Crossing', 'Japanese', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTwP8ImneAyqJOqtA1DZS5EofWaxgeQYcs6VJnKFzRzeeTl9gzmxsbbPJ5sM8BP_1LcmQ&usqp=CAU', 'Perice Yerborn');""",
-            """INSERT INTO restaurants (name, address, description, url_image, responsible_name) VALUES('Dorri Flaonier', '49 Tony Way', 'Fast Food', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQ27r1cRy8ivMOYdxvDbmCGhPLx-brAiuwmdQUxNGVx8RfVDT43smK9ICuFOSH7aY022g&usqp=CAU', 'Cathryn Purrier');""",
-            """INSERT INTO restaurants (name, address, description, url_image, responsible_name) VALUES('Tully Rittelmeyer', '1 Swallow Terrace', 'Indian', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8EZsFAsDjNrXxIGRaeB2ww73LUPB8Of4GWgoNs3Q8la1HQgKE_HI36CQFLwQWih-F5BA&usqp=CAU', 'Jacquie Kinsey');""",
-            """INSERT INTO restaurants (name, address, description, url_image, responsible_name) VALUES('Miller Gradly', '977 Carey Way', 'Italian', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAfWwZBJVVuFpgPpXfnPKmstFd_ZVRJV1H-I7j1WraE330Et1hTCGIYOVRCwZfJMQNy0Q&usqp=CAU', 'Norris Tilt');""",
-            """INSERT INTO restaurants (name, address, description, url_image, responsible_name) VALUES('Debor Renfree', '59643 Ramsey Trail', 'French', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT196odUf3WpjgHkBOQjM9EzB5u6HOL_cVceohhb0KfY84U-QgSSHVenxuzqlfnUywJfkI&usqp=CAU', 'Omero Dubarry');""",
-            """INSERT INTO products (name, url_image, description, price, extras, id_restaurant) VALUES('Sushi', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRye8VP9JUUyyfMha0Yl7VHcH4ouPCyZNH6g&usqp=CAU', 'Japanese Food', 8.17, 'Syrup - Monin - Granny Smith', 1);""",
-            """INSERT INTO products (name, url_image, description, price, extras, id_restaurant) VALUES('Pizza', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeTYGOTjXZzHs26qMEfnmw6qe3MNiG-KSKsbh4I8lz8OgRjl7yDWs83ohdjhzQpyki0bc&usqp=CAU', 'Napolitan Pizza', 13.65, 'Pectin', 1);""",
-            """INSERT INTO products (name, url_image, description, price, extras, id_restaurant) VALUES('Croassaint', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTd55JcaxnfjlHrhWzvcgSqSpE2VX0tRzGnbaGO9FY_yy5HsRS8H4Q_9yTCakbpKMXsHBU&usqp=CAU', 'French Bakeries', 14.23, 'Flour - All Purpose', 1);""",
-            """INSERT INTO products (name, url_image, description, price, extras, id_restaurant) VALUES('Churrasco', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSK5y3xcyOFdMVt7qvcwWW2ZRf30Et6RtcX4g&usqp=CAU', 'Brazilian Food', 17.84, 'Beef - Rouladin, Sliced', 1);""",
-            """INSERT INTO products (name, url_image, description, price, extras, id_restaurant) VALUES('Tuer', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOImM1PsvnLCY8RpLYC_XMrfbty6eNuF-uAg&usqp=CAU', 'Indian Food', 22.28, 'Sping Loaded Cup Dispenser', 2);""",
-            """INSERT INTO products (name, url_image, description, price, extras, id_restaurant) VALUES('Soup', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMNs2g8v99sOI-G_vjI4wssJvKiGjyW83FhK1dzcC519rrp0zhM2U5gWqxgWZGG79jhRk&usqp=CAU', 'French food', 7.75, 'Pork - Tenderloin, Fresh', 3);""",
-            """INSERT INTO products (name, url_image, description, price, extras, id_restaurant) VALUES('Sashimi', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHCzb8_510HSbVUZgXJU6m4EHt0UXFH4OugA&usqp=CAU', 'Japanese Food', 8.33, 'Cup - 6oz, Foam', 4);""",
-        ]
-
-        try:
-            for slq in sqls:
-                self._cursor.execute(slq)
-            self._db_connection.commit()
-        except Error as ex:
-            print(ex)

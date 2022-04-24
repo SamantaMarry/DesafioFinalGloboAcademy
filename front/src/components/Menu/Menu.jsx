@@ -8,50 +8,29 @@ import { Link } from 'react-router-dom';
 function Menu() {
   return (
     <>
-
-
-      <div class="logo-links">
+      <div className="logo-links">
         <Link to={'/'}>
           <div id="logo">
             <img src={logo} />
           </div>
         </Link>
 
-        <nav class="menu">
-          <div class="links-menu">
+        <nav className="menu">
+          <div className="links-menu">
             <ul>
-              <Link to={'/'}>
-                <li><a href="">Restaurantes</a></li>
-              </Link>
-              <Link to={'/admin/restaurant/cadastro'}>
-                <li><a href=""> Cadastre seu Restaurante</a></li>
-              </Link>
-              <Link to={'/admin/product/cadastro'}>
-                <li><a href="">Cadastre seu Produto</a></li>
-              </Link>
+              <li><Link to={'/'}>Restaurantes</Link></li>
+              <li> <Link to={'/admin/restaurant/cadastro'}>Cadastre seu Restaurante </Link></li>
+              <li><Link to={'/admin/product/cadastro'}>Cadastre seu Produto </Link></li>
             </ul>
           </div>
         </nav>
       </div>
-
-      {/*
-            <nav class="menu">
-              <div class="links-menu">
-                <ul>
-                  <li><a href="">Restaurantes</a></li>
-                  <li><a href="">Trabalhe conosco</a></li>
-                  <li><a href="">Entregas</a></li>
-                </ul>
-              </div>        
-            </nav>
-            */}
-
-    <div class="login">
-      <div class="login-area">
-        <a href="">Entrar</a>
-        <button>Cadastrar</button>
+      <div className="login">
+        <div className="login-area">
+          <a href="">Entrar</a>
+          <button>Cadastrar</button>
+        </div>
       </div>
-    </div>
     </>
   )
 }

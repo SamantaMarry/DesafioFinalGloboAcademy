@@ -30,7 +30,7 @@ book = [book [ book for book in books book['title'] title ]
 # https://www.youtube.com/watch?v=b6wzCMH6-tY
 # https://www.youtube.com/watch?v=P4yljJ9YBpg
 
---------
+
 Links:
   [.env Python]
   - https://dev.to/jakewitcher/using-env-files-for-environment-variables-in-python-applications-55a1
@@ -41,5 +41,18 @@ Links:
 
 
 ## Docker ###
-docker build -t teste_python .
-docker run -d -p 5000:5000 --name tt_python teste_python
+docker build -t jsonfood_api_python .
+docker run -d -p 5000:5000 --name jsonfood_api_python jsonfood_api_python
+
+--------
+# Subir container mysql
+docker run --name mysql -v mysql-db:/var/lib/mysql -e MYSQL_DATABASE=jsonsfood -e MYSQL_USER=desenv -e MYSQL_PASSWORD=desenv -e MYSQL_ROOT_PASSWORD=desenv_root -p 3306:3306 -d mysql
+
+Extras:
+ --max-allowed-packet=16384
+ --max_execution_time=150
+ --max_user_connections=10
+ --default-authentication-plugin=mysql_native_password
+ --net_write_timeout=60
+
+ docker run --name mysql -v mysql-db:/var/lib/mysql -e MYSQL_DATABASE=jsonsfood -e MYSQL_USER=desenv -e MYSQL_PASSWORD=desenv -e MYSQL_ROOT_PASSWORD=desenv_root -p 3306:3306 -d mysql --max_execution_time=150 --max_user_connections=10 --default-authentication-plugin=mysql_native_password  --net_write_timeout=60

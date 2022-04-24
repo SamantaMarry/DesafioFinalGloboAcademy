@@ -1,0 +1,14 @@
+version: '3.9'
+
+services:
+  mysql:
+    image: mysql
+    container_name: gta-mysql-db
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      - MYSQL_USER=desenv
+      - MYSQL_PASSWORD=desenv
+      - MYSQL_ROOT_PASSWORD=desenv_root
+      - MYSQL_DATABASE=jsonsfood
+    ports:
+      - "3306:3306"

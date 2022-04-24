@@ -12,7 +12,6 @@ export default function Home() {
 
   useEffect(() => {
     api.get("/restaurants").then((response) => {
-      console.log(response.data);
       setRestaurants(response.data);
     });
   }, []);
@@ -34,7 +33,7 @@ export default function Home() {
               </div>
             </section>
 
-            <section class="food-style">
+            <section className="food-style">
               <h4>Comida para todo <br />
                 gosto!</h4>
               <img src={catalog} />

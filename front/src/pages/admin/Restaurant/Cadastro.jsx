@@ -16,18 +16,17 @@ export default function Restaurant() {
   });
   const [message, setMessage] = useState({});
 
+  /*
   useEffect(() => {
-    console.log("🚀 ~ file: Cadastro.jsx ~ line 28 ~ api.post ~ restaurants", restaurants)
-
-  
-  }, [])
+    //console.log("🚀 ~ file: Cadastro.jsx ~ line 28 ~ api.post ~ restaurants", restaurants)
+  }, [])*/
 
   const save = (ev) => {
     ev.preventDefault();
     api.post('/restaurants', restaurants).then(response => {
-      setMessage({type: 'sucess', message: "Restaurante cadastrado com sucesso!"});
+      setMessage({ type: 'sucess', message: "Restaurante cadastrado com sucesso!" });
     });
-      
+
   }
 
   const changeField = (ev) => {
@@ -46,7 +45,7 @@ export default function Restaurant() {
             role="alert"
           >
             <p>{message.message}</p>
-            
+
             <button
               type="button"
               className="close"
@@ -69,12 +68,12 @@ export default function Restaurant() {
                 placeholder="Digite o nome do restaurante"
               />
               <label htmlFor="">Descrição</label>
-              <textarea 
-              value={restaurants.description} 
-              onChange={changeField} 
-              name="description" 
-              rows="5" cols="30"
-              placeholder="Descrição"
+              <textarea
+                value={restaurants.description}
+                onChange={changeField}
+                name="description"
+                rows="5" cols="30"
+                placeholder="Descrição"
               ></textarea>
             </div>
             <div className="c-card-content_right">
@@ -102,7 +101,7 @@ export default function Restaurant() {
                 name="responsible_name"
                 placeholder="Digite o nome do responsável"
               />
-                <Button
+              <Button
                 title="Salvar"
                 type="submit"
                 onClick={(e) => save(e)}

@@ -1,6 +1,7 @@
 import os
 from flask import request
 from flask_restful import Resource, reqparse
+from src.database.data_base import data_base
 from src.server.instance import server
 from src.server.db import db
 from src.model.product import ProductModel
@@ -18,6 +19,7 @@ class ProductController(Resource):
 
 class Product(Resource):
     def get(self, id):
+        db = data_base.connect()
         ProductModel.setConnectDataBase(db)
         product = ProductModel.find_by_id(id)
         if not product:
@@ -26,6 +28,7 @@ class Product(Resource):
         return product
 
     def put(self, id):
+        db = data_base.connect()
         ProductModel.setConnectDataBase(db)
         RestaurantModel.setConnectDataBase(db)
 
@@ -68,18 +71,34 @@ class Product(Resource):
         product.id_restaurant = data.id_restaurant
 
         try:
-            product.update().lastrowid
+            product.update()
+            db.commit()
         except Exception as error:
+            db.rollback()
             return {"Error": str(error)}, 400
 
         return None, 200, {"Location": f"{os.getenv('ROOT_URL')}/products/{id}"}
 
     def delete(self, id):
-        print("Product DELETE \o/ {}".format(id))
+        db = data_base.connect()
+        ProductModel.setConnectDataBase(db)
+        product = ProductModel.find_by_id_build(id)
+        if not product:
+            return {}, 204
+
+        try:
+            product.delete()
+            db.commit()
+        except Exception as error:
+            db.rollback()
+            return {"Error": str(error)}, 400
+
+        return product.to_dict(), 200
 
 
 class ProductList(Resource):
     def get(self):
+        db = data_base.connect()
         ProductModel.setConnectDataBase(db)
 
         # querystring
@@ -92,6 +111,7 @@ class ProductList(Resource):
         return products
 
     def post(self):
+        db = data_base.connect()
         ProductModel.setConnectDataBase(db)
         RestaurantModel.setConnectDataBase(db)
 
@@ -132,8 +152,10 @@ class ProductList(Resource):
         )
 
         try:
-            lastid = product.insert().lastrowid
+            lastid = product.insert().last_id()
+            db.commit()
         except Exception as error:
+            db.rollback()
             return {"Error": str(error)}, 400
 
         return None, 201, {"Location": f"{os.getenv('ROOT_URL')}/products/{lastid}"}

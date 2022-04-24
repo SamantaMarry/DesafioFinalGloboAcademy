@@ -15,7 +15,7 @@ function CardMenu(props) {
   return (
     <div className="c-restaurants-card_content">
       <div className="c-restaurants-card_left">
-        <img src={url_image} alt="SEM IMAGEM" srcset="" />
+        <img src={url_image} alt="SEM IMAGEM" />
       </div>
       <div className="c-restaurants-card_right">
         <h1>{name}</h1>

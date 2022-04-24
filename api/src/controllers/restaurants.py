@@ -2,7 +2,9 @@ import os
 from flask import request
 from flask_restful import Resource, reqparse
 from src.server.instance import server
-from src.server.db import db
+
+# from src.server.db import db
+from src.database.data_base import data_base
 from src.model.restaurant import RestaurantModel
 from src.model.product import ProductModel
 
@@ -21,7 +23,9 @@ class RestaurantController(Resource):
 
 class Restaurant(Resource):
     def get(self, id):
+        db = data_base.connect()
         RestaurantModel.setConnectDataBase(db)
+
         restaurant = RestaurantModel.find_by_id(id)
         if not restaurant:
             return {}, 204
@@ -29,6 +33,7 @@ class Restaurant(Resource):
         return restaurant
 
     def put(self, id):
+        db = data_base.connect()
         RestaurantModel.setConnectDataBase(db)
         restaurant = RestaurantModel.find_by_id_build(id)
         if not restaurant:
@@ -63,24 +68,34 @@ class Restaurant(Resource):
         restaurant.responsible_name = data.responsible_name
 
         try:
-            restaurant.update().lastrowid
+            restaurant.update()
+            db.commit()
         except Exception as error:
+            db.rollback()
             return {"Error": str(error)}, 400
 
         return None, 200, {"Location": f"{os.getenv('ROOT_URL')}/restaurants/{id}"}
 
     def delete(self, id):
+        db = data_base.connect()
         RestaurantModel.setConnectDataBase(db)
         restaurant = RestaurantModel.find_by_id_build(id)
         if not restaurant:
             return {}, 204
 
-        restaurant.delete()
+        try:
+            restaurant.delete()
+            db.commit()
+        except Exception as error:
+            db.rollback()
+            return {"Error": str(error)}, 400
+
         return restaurant.to_dict(), 200
 
 
 class RestaurantList(Resource):
     def get(self):
+        db = data_base.connect()
         RestaurantModel.setConnectDataBase(db)
 
         # querystring
@@ -90,9 +105,13 @@ class RestaurantList(Resource):
             restaurants = RestaurantModel.find_all(order=order)
         except Exception as error:
             return {"Error": str(error)}, 400
+        finally:
+            db.close_connect()
+
         return restaurants
 
     def post(self):
+        db = data_base.connect()
         RestaurantModel.setConnectDataBase(db)
 
         # --
@@ -124,11 +143,11 @@ class RestaurantList(Resource):
             data.responsible_name,
         )
 
-        print()
-
         try:
-            lastid = restaurant.insert().lastrowid
+            lastid = restaurant.insert().last_id()
+            db.commit()
         except Exception as error:
+            db.rollback()
             return {"Error": str(error)}, 400
 
         return None, 201, {"Location": f"{os.getenv('ROOT_URL')}/restaurants/{lastid}"}
@@ -136,6 +155,7 @@ class RestaurantList(Resource):
 
 class RestaurantProductList(Resource):
     def get(self, id_restaurant):
+        db = data_base.connect()
         ProductModel.setConnectDataBase(db)
 
         order = request.args.get("order", default="", type=str)
