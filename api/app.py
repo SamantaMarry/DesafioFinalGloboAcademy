@@ -1,8 +1,5 @@
 from dotenv import load_dotenv
-from flask import g
-from src.database.data_base import data_base
-
-# from src.database.db_connect import db
+from src.database import data_base
 
 load_dotenv()
 
@@ -11,15 +8,16 @@ from flask_pydantic_spec import FlaskPydanticSpec
 
 
 from src.controllers.restaurants import RestaurantController
-from src.controllers.products import ProductController
+
+# from src.controllers.products import ProductController
 
 app = server.app
 
 
-# @app.before_request
-# def before_func():
-#     # g._db_connects = []
-#     print("-- before_request -- ")
+@app.before_request
+def before_request_func():
+    # connect data base env
+    data_base.connect("db")
 
 
 @app.after_request
@@ -36,7 +34,7 @@ spec = FlaskPydanticSpec("FlaskPydanticSpec", title="JasonsFood")
 spec.register(app)
 
 RestaurantController.routes()
-ProductController.routes()
+# ProductController.routes()
 
 if __name__ == "__main__":
     server.run()

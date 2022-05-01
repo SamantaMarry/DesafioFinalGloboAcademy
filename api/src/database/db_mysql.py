@@ -1,5 +1,7 @@
+from contextlib import contextmanager
 import mysql.connector
 from mysql.connector import errorcode
+
 
 class db_mysql:
     def __init__(self, host, user, password, database) -> mysql.connector:
@@ -39,16 +41,84 @@ class db_mysql:
     def __del__(self) -> None:
         self.__conn.close()
 
-    def pquey(self, query, args=None):
+    @property
+    def get_connection(self):
+        return self.__conn
+
+    @property
+    def get_cursor(self):
+        return self.__cursor
+
+    # def close_cursor(self) -> None:
+    #     self.__cursor.close()
+
+    def close_connect(self) -> None:
+        self.__conn.close()
+
+    ###################
+    ### TRANSACTION ###
+    ###################
+
+    @property
+    def fetchone(self):
+        return self.__cursor.fetchone()
+
+    @property
+    def fetchall(self):
+        return self.__cursor.fetchall()
+
+    @property
+    def fetchmany(self, size=None):
+        return self.__cursor.fetchmany(size)
+
+    @property
+    def last_id(self):
+        return self.__cursor.lastrowid
+
+    ###################
+    ### TRANSACTION ###
+    ###################
+
+    def rollback(self):
+        return self.__conn.rollback()
+
+    def commit(self):
+        return self.__conn.commit()
+
+    #####################
+    ### EXECUTE QUERY ###
+    #####################
+
+    @contextmanager
+    def query_area(self, commit: bool = False):
+        """
+        A context manager style of using a DB cursor for database operations.
+        This function should be used for any database queries or operations that
+        need to be done.
+
+        :param commit:
+        A boolean value that says whether to commit any database changes to the database. Defaults to False.
+        :type commit: bool
+        """
+        # cursor = self.get_cursor()
+        try:
+            yield self
+        except mysql.connector.Error as err:
+            print("DatabaseError {} ".format(err))
+            self.rollback()
+            raise err
+        else:
+            if commit:
+                self.commit()
+        # finally:
+        #     self.__cursor.close()
+
+    def pquery(self, query, args=None):
         try:
             if not query or not isinstance(query, str):
                 raise Exception("Query should be string")
 
-            if not self.__conn or not self.__conn.is_connected():
-                self.__open_connection()
-
             self.__cursor.execute(query, args)
-
             # print("Last Query: {}".format(self.__cursor.statement))
 
             return self
@@ -59,38 +129,15 @@ class db_mysql:
                 f"An exception occured due to: {e} \r\n Last Query: {self.__cursor.statement}"
             )
 
-    def get_cursor(self):
-        return self.__cursor
-
-    def pquey_result(self, query, args=None):
-        self.pquey(query, args)
+    def pquery_result(self, query, args=None):
+        self.pquery(query, args)
         return self.fetchall()
 
-    def fetchone(self):
-        return self.__cursor.fetchone()
+    ###################
+    ### ACTIONS SQL ###
+    ###################
 
-    def fetchall(self):
-        return self.__cursor.fetchall()
-
-    def fetchmany(self, size=None):
-        return self.__cursor.fetchmany(size)
-
-    def last_id(self):
-        return self.__cursor.lastrowid
-
-    def rollback(self):
-        return self.__conn.rollback()
-
-    def commit(self):
-        return self.__conn.commit()
-
-    # def close_cursor(self) -> None:
-    #     self.__cursor.close()
-
-    def close_connect(self) -> None:
-        self.__conn.close()
-
-    def insert(self, table, values):
+    def sql_table_insert(self, table: str, values: dict, commit: bool = False):
         fields = []
         parms_bind = []
         args = []
@@ -107,11 +154,16 @@ class db_mysql:
             INSERT INTO {table} ({fields_insert})
             VALUES ({binds_insert})
         """
-        res = self.pquey(sql, args)
+        self.pquery(sql, args)
 
-        return res
+        if commit:
+            self.commit()
 
-    def update(self, table, values, where, args=[]):
+        return self
+
+    def sql_table_update(
+        self, table: str, values: dict, where, args: list = [], commit: bool = False
+    ):
         fields = []
         args_values = []
         for field, value in values.items():
@@ -126,14 +178,23 @@ class db_mysql:
             WHERE 1=1 AND {where}
         """
 
-        res = self.pquey(sql, args)
-        return res
+        self.pquery(sql, args)
 
-    def delete(self, table, where, args=[]):
+        if commit:
+            self.commit()
+
+        return self
+
+    def sql_table_delete(
+        self, table: str, where: dict, args: list = [], commit: bool = False
+    ):
         sql = f"""
             DELETE FROM {table}
             WHERE 1=1 AND {where}
         """
-        res = self.pquey(sql, args)
+        self.pquery(sql, args)
 
-        return res
+        if commit:
+            self.commit()
+
+        return self

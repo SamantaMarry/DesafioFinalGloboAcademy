@@ -4,7 +4,7 @@ from flask_restful import Resource, reqparse
 from src.server.instance import server
 
 # from src.server.db import db
-from src.database.data_base import data_base
+from src.database import data_base
 from src.model.restaurant import RestaurantModel
 from src.model.product import ProductModel
 
@@ -95,20 +95,28 @@ class Restaurant(Resource):
 
 class RestaurantList(Resource):
     def get(self):
-        db = data_base.connect()
-        RestaurantModel.setConnectDataBase(db)
 
-        # querystring
-        order = request.args.get("order", default="", type=str)
+        db = data_base.get_connect("db")
+        with db.query_area():
+            data = db.pquery("select * from restaurants limit 1;").fetchall
 
-        try:
-            restaurants = RestaurantModel.find_all(order=order)
-        except Exception as error:
-            return {"Error": str(error)}, 400
-        finally:
-            db.close_connect()
+        print(data)
 
-        return restaurants
+        ######
+        # db = data_base.connect()
+        # RestaurantModel.setConnectDataBase(db)
+
+        # # querystring
+        # order = request.args.get("order", default="", type=str)
+
+        # try:
+        #     restaurants = RestaurantModel.find_all(order=order)
+        # except Exception as error:
+        #     return {"Error": str(error)}, 400
+        # finally:
+        #     db.close_connect()
+
+        # return restaurants
 
     def post(self):
         db = data_base.connect()
