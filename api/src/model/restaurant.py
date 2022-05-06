@@ -24,8 +24,8 @@ class RestaurantModel(ModelBase):
         return self
 
     def delete(self):
-        self._db.delete("products", f"id_restaurant=%s", [self.id])
+        self._db.sql_table_delete("products", f"id_restaurant=%s", [self.id])
 
         # chamar o super
-        res = self._db.delete(self.__tablename__, f"id=%s", [self.id])
+        res = self._db.sql_table_delete(self.__tablename__, f"id=%s", [self.id])
         return res

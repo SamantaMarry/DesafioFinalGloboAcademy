@@ -3,7 +3,6 @@ from flask import request
 from flask_restful import Resource, reqparse
 from src.server.instance import server
 
-# from src.server.db import db
 from src.database import data_base
 from src.model.restaurant import RestaurantModel
 from src.model.product import ProductModel
@@ -23,19 +22,17 @@ class RestaurantController(Resource):
 
 class Restaurant(Resource):
     def get(self, id):
-        db = data_base.connect()
-        RestaurantModel.setConnectDataBase(db)
+        db = data_base.get_connect("db")
 
-        restaurant = RestaurantModel.find_by_id(id)
+        restaurant = RestaurantModel.find_by_id(db, id)
         if not restaurant:
             return {}, 204
 
         return restaurant
 
     def put(self, id):
-        db = data_base.connect()
-        RestaurantModel.setConnectDataBase(db)
-        restaurant = RestaurantModel.find_by_id_build(id)
+        db = data_base.get_connect("db")
+        restaurant = RestaurantModel.find_by_id_build(db, id)
         if not restaurant:
             return None, 204
 
@@ -77,9 +74,8 @@ class Restaurant(Resource):
         return None, 200, {"Location": f"{os.getenv('ROOT_URL')}/restaurants/{id}"}
 
     def delete(self, id):
-        db = data_base.connect()
-        RestaurantModel.setConnectDataBase(db)
-        restaurant = RestaurantModel.find_by_id_build(id)
+        db = data_base.get_connect("db")
+        restaurant = RestaurantModel.find_by_id_build(db, id)
         if not restaurant:
             return {}, 204
 
@@ -95,34 +91,20 @@ class Restaurant(Resource):
 
 class RestaurantList(Resource):
     def get(self):
-
         db = data_base.get_connect("db")
-        with db.query_area():
-            data = db.pquery("select * from restaurants limit 1;").fetchall
 
-        print(data)
+        # querystring
+        order = request.args.get("order", default="", type=str)
 
-        ######
-        # db = data_base.connect()
-        # RestaurantModel.setConnectDataBase(db)
+        try:
+            restaurants = RestaurantModel.find_all(db, order=order)
+        except Exception as error:
+            return {"Error": str(error)}, 400
 
-        # # querystring
-        # order = request.args.get("order", default="", type=str)
-
-        # try:
-        #     restaurants = RestaurantModel.find_all(order=order)
-        # except Exception as error:
-        #     return {"Error": str(error)}, 400
-        # finally:
-        #     db.close_connect()
-
-        # return restaurants
+        return restaurants
 
     def post(self):
-        db = data_base.connect()
-        RestaurantModel.setConnectDataBase(db)
 
-        # --
         parser = reqparse.RequestParser()
         parser.add_argument(
             "name", type=str, required=True, help="Name cannot be blank"
@@ -143,7 +125,8 @@ class RestaurantList(Resource):
         data = parser.parse_args()
         # --
 
-        restaurant = RestaurantModel().build(
+        db = data_base.get_connect("db")
+        restaurant = RestaurantModel(db).build(
             data.name,
             data.address,
             data.description,
@@ -152,10 +135,9 @@ class RestaurantList(Resource):
         )
 
         try:
-            lastid = restaurant.insert().last_id()
-            db.commit()
+            with db.query_area(commit=True):
+                lastid = restaurant.insert().last_id
         except Exception as error:
-            db.rollback()
             return {"Error": str(error)}, 400
 
         return None, 201, {"Location": f"{os.getenv('ROOT_URL')}/restaurants/{lastid}"}
@@ -163,13 +145,12 @@ class RestaurantList(Resource):
 
 class RestaurantProductList(Resource):
     def get(self, id_restaurant):
-        db = data_base.connect()
-        ProductModel.setConnectDataBase(db)
+        db = data_base.get_connect("db")
 
         order = request.args.get("order", default="", type=str)
         try:
             products = ProductModel.find_all_prodcts_restaurant_id(
-                id_restaurant, order=order
+                db, id_restaurant, order=order
             )
         except Exception as error:
             return {"Error": str(error)}, 400

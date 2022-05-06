@@ -1,9 +1,9 @@
 import os
 from flask import request
 from flask_restful import Resource, reqparse
-from src.database.data_base import data_base
 from src.server.instance import server
-from src.server.db import db
+
+from src.database import data_base
 from src.model.product import ProductModel
 from src.model.restaurant import RestaurantModel
 
@@ -19,21 +19,18 @@ class ProductController(Resource):
 
 class Product(Resource):
     def get(self, id):
-        db = data_base.connect()
-        ProductModel.setConnectDataBase(db)
-        product = ProductModel.find_by_id(id)
+        db = data_base.get_connect("db")
+        product = ProductModel.find_by_id(db, id)
         if not product:
             return {}, 204
 
         return product
 
     def put(self, id):
-        db = data_base.connect()
-        ProductModel.setConnectDataBase(db)
-        RestaurantModel.setConnectDataBase(db)
+        db = data_base.get_connect("db")
 
         # --
-        product = ProductModel.find_by_id_build(id)
+        product = ProductModel.find_by_id_build(db, id)
         if not product:
             return None, 204
 
@@ -59,7 +56,7 @@ class Product(Resource):
         data = parser.parse_args()
 
         # --
-        restaurant = RestaurantModel.find_by_id(data.id_restaurant)
+        restaurant = RestaurantModel.find_by_id(db, data.id_restaurant)
         if not restaurant:
             return {"Error": "Restaurant not exist"}, 404
 
@@ -80,9 +77,8 @@ class Product(Resource):
         return None, 200, {"Location": f"{os.getenv('ROOT_URL')}/products/{id}"}
 
     def delete(self, id):
-        db = data_base.connect()
-        ProductModel.setConnectDataBase(db)
-        product = ProductModel.find_by_id_build(id)
+        db = data_base.get_connect("db")
+        product = ProductModel.find_by_id_build(db, id)
         if not product:
             return {}, 204
 
@@ -98,22 +94,19 @@ class Product(Resource):
 
 class ProductList(Resource):
     def get(self):
-        db = data_base.connect()
-        ProductModel.setConnectDataBase(db)
+        db = data_base.get_connect("db")
 
         # querystring
         order = request.args.get("order", default="", type=str)
 
         try:
-            products = ProductModel.find_all(order=order)
+            products = ProductModel.find_all(db, order=order)
         except Exception as error:
             return {"Error": str(error)}, 400
         return products
 
     def post(self):
-        db = data_base.connect()
-        ProductModel.setConnectDataBase(db)
-        RestaurantModel.setConnectDataBase(db)
+        db = data_base.get_connect("db")
 
         # --
         parser = reqparse.RequestParser()
@@ -137,12 +130,12 @@ class ProductList(Resource):
         data = parser.parse_args()
 
         # --
-        restaurant = RestaurantModel.find_by_id(data.id_restaurant)
+        restaurant = RestaurantModel.find_by_id(db, data.id_restaurant)
         if not restaurant:
             return {"Error": "Restaurant not exist"}, 404
 
         # --
-        product = ProductModel().build(
+        product = ProductModel(db).build(
             data.name,
             data.url_image,
             data.description,
@@ -152,7 +145,7 @@ class ProductList(Resource):
         )
 
         try:
-            lastid = product.insert().last_id()
+            lastid = product.insert().last_id
             db.commit()
         except Exception as error:
             db.rollback()

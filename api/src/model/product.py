@@ -28,7 +28,7 @@ class ProductModel(ModelBase):
         return self
 
     @classmethod
-    def find_all_prodcts_restaurant_id(cls, id, order=""):
+    def find_all_prodcts_restaurant_id(cls, db, id, order=""):
 
         # --
         sql = f"SELECT * FROM {cls.__tablename__} WHERE id_restaurant = %s "
@@ -38,7 +38,7 @@ class ProductModel(ModelBase):
             if sql_order_by:
                 sql += f" {sql_order_by}"
 
-        print(sql)
+        # print(sql)
 
-        res = cls._db.pquey(sql, [id]).fetchall()
+        res = db.pquery(sql, [id]).fetchall()
         return res

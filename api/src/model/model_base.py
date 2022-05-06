@@ -7,6 +7,9 @@ class ModelBase:
     __columns__ = ()
     _db = None
 
+    def __init__(self, db) -> None:
+        self._db = db
+
     def __repr__(self) -> str:
         aux = []
         for column in self.__columns__:
@@ -32,7 +35,7 @@ class ModelBase:
         for column in self.__columns__:
             values[column] = self.__dict__[column]
 
-        res = self._db.insert(self.__tablename__, values)
+        res = self._db.sql_table_insert(self.__tablename__, values)
         return res
 
     def update(self):
@@ -41,54 +44,49 @@ class ModelBase:
             values[column] = self.__dict__[column]
         del values["id"]
 
-        res = self._db.update(self.__tablename__, values, f"id=%s", [self.id])
+        res = self._db.sql_table_update(self.__tablename__, values, f"id=%s", [self.id])
         return res
 
     def delete(self):
-        res = self._db.delete(self.__tablename__, f"id=%s", [self.id])
+        res = self._db.sql_table_delete(self.__tablename__, f"id=%s", [self.id])
         return res
 
     @classmethod
-    def setConnectDataBase(cls, value):
-        cls._db = value
-
-    @classmethod
-    def find_all(cls, order=""):
+    def find_all(cls, db, order=""):
 
         # --
         sql = f"SELECT * FROM {cls.__tablename__}"
 
         if order:
-            sql_order_by = cls.build_order_by(order)
+            sql_order_by = ModelBase.build_order_by(order)
             if sql_order_by:
                 sql += f" {sql_order_by}"
 
-        res = cls._db.pquey(sql).fetchall()
+        res = db.pquery(sql).fetchall()
         return res
 
     @classmethod
-    def find_by_id(cls, id):
+    def find_by_id(cls, db, id):
         sql = f"SELECT * FROM {cls.__tablename__} WHERE id = %s "
-        res = cls._db.pquey(sql, [id]).fetchone()
+        res = db.pquery(sql, [id]).fetchone()
 
         return res
 
     @classmethod
-    def find_by_id_build(cls, id):
-        data = cls.find_by_id(id)
+    def find_by_id_build(cls, db, id):
+        data = cls.find_by_id(db, id)
 
         if not data:
             return False
 
-        obj = cls()
+        obj = cls(db)
         for column in cls.__columns__:
             setattr(obj, column, data[column])
 
         return obj
 
-    # order = "name-asc,description-desc"
-    @classmethod
-    def build_order_by(cls, order: str):
+    @staticmethod
+    def build_order_by(order: str):
         sql = ""
         if order:
             args = order.split(",")

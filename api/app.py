@@ -8,8 +8,7 @@ from flask_pydantic_spec import FlaskPydanticSpec
 
 
 from src.controllers.restaurants import RestaurantController
-
-# from src.controllers.products import ProductController
+from src.controllers.products import ProductController
 
 app = server.app
 
@@ -34,7 +33,7 @@ spec = FlaskPydanticSpec("FlaskPydanticSpec", title="JasonsFood")
 spec.register(app)
 
 RestaurantController.routes()
-# ProductController.routes()
+ProductController.routes()
 
 if __name__ == "__main__":
     server.run()

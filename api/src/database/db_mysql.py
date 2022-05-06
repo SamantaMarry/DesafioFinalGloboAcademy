@@ -1,6 +1,6 @@
-from contextlib import contextmanager
 import mysql.connector
 from mysql.connector import errorcode
+from contextlib import contextmanager
 
 
 class db_mysql:
@@ -59,15 +59,12 @@ class db_mysql:
     ### TRANSACTION ###
     ###################
 
-    @property
     def fetchone(self):
         return self.__cursor.fetchone()
 
-    @property
     def fetchall(self):
         return self.__cursor.fetchall()
 
-    @property
     def fetchmany(self, size=None):
         return self.__cursor.fetchmany(size)
 
