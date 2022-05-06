@@ -1,5 +1,5 @@
 from dataclasses import field
-from src.util.list import UtilList
+from src.util import ulist
 
 
 class ModelBase:
@@ -96,7 +96,7 @@ class ModelBase:
                 for arg in args:
                     col = arg.split("-")
                     fieldOrde = col[0]
-                    typeOrder = UtilList.getValue(col, 1, "")
+                    typeOrder = ulist.getValue(col, 1, "")
 
                     aux = f"{fieldOrde}"
                     if typeOrder:

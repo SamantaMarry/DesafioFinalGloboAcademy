@@ -1,6 +1,9 @@
 import os
 from flask import request
+
 from flask_restful import Resource, reqparse
+from marshmallow import Schema, fields, ValidationError
+
 from src.server.instance import server
 
 from src.database import data_base
@@ -8,6 +11,34 @@ from src.model.restaurant import RestaurantModel
 from src.model.product import ProductModel
 
 api = server.api
+
+# ----------------
+
+# https://marshmallow.readthedocs.io/en/stable/extending.html
+# https://stackoverflow.com/questions/65830811/marshmallow-for-python-giving-valueerror-not-enough-values-to-unpack-expected
+# https://github.com/marshmallow-code/marshmallow/issues/1130
+# https://stackoverflow.com/questions/63944416/marshmallow-custom-validation-message-for-email
+# https://stackoverflow.com/questions/66290964/marshmallow-not-returning-validation-errors-from-a-nested-list
+
+
+class RestaurantSchema(Schema):
+    # id = fields.Int(required=False)
+    name = fields.Str(
+        required=True, error_messages={"required": "Name cannot be blank"}
+    )
+    address = fields.Str(
+        required=True, error_messages={"required": "address cannot be blank"}
+    )
+    description = fields.Str(required=False)
+    url_image = fields.Str(
+        required=True, error_messages={"required": "url_image cannot be blank"}
+    )
+    responsible_name = fields.Str(
+        required=True, error_messages={"required": "responsible_name cannot be blank"}
+    )
+
+
+# ----------------
 
 
 class RestaurantController(Resource):
@@ -104,6 +135,16 @@ class RestaurantList(Resource):
         return restaurants
 
     def post(self):
+        try:
+            restaurant_schema = RestaurantSchema()
+            req = restaurant_schema.load(request.get_json())
+        except ValidationError as err:
+            return err.messages, 422
+
+        print(req)
+        return {}, 200
+
+    def post2(self):
 
         parser = reqparse.RequestParser()
         parser.add_argument(
