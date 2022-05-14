@@ -2,13 +2,18 @@ import os
 from flask import request
 
 from flask_restful import Resource, reqparse
-from marshmallow import Schema, fields, ValidationError
+from marshmallow import ValidationError
 
 from src.server.instance import server
 
 from src.database import data_base
 from src.model.restaurant import RestaurantModel
 from src.model.product import ProductModel
+
+from src.controllers.dto.restaurant_dto import (
+    RestaurantDtoMarshmallow,
+    RestaurantDtoRestfull,
+)
 
 api = server.api
 
@@ -19,26 +24,7 @@ api = server.api
 # https://github.com/marshmallow-code/marshmallow/issues/1130
 # https://stackoverflow.com/questions/63944416/marshmallow-custom-validation-message-for-email
 # https://stackoverflow.com/questions/66290964/marshmallow-not-returning-validation-errors-from-a-nested-list
-
-
-class RestaurantSchema(Schema):
-    # id = fields.Int(required=False)
-    name = fields.Str(
-        required=True, error_messages={"required": "Name cannot be blank"}
-    )
-    address = fields.Str(
-        required=True, error_messages={"required": "address cannot be blank"}
-    )
-    description = fields.Str(required=False)
-    url_image = fields.Str(
-        required=True, error_messages={"required": "url_image cannot be blank"}
-    )
-    responsible_name = fields.Str(
-        required=True, error_messages={"required": "responsible_name cannot be blank"}
-    )
-
-
-# ----------------
+# https://www.youtube.com/watch?v=dmnOf-VvJcU
 
 
 class RestaurantController(Resource):
@@ -134,9 +120,9 @@ class RestaurantList(Resource):
 
         return restaurants
 
-    def post(self):
+    def post2(self):
         try:
-            restaurant_schema = RestaurantSchema()
+            restaurant_schema = RestaurantDtoMarshmallow()
             req = restaurant_schema.load(request.get_json())
         except ValidationError as err:
             return err.messages, 422
@@ -144,27 +130,8 @@ class RestaurantList(Resource):
         print(req)
         return {}, 200
 
-    def post2(self):
-
-        parser = reqparse.RequestParser()
-        parser.add_argument(
-            "name", type=str, required=True, help="Name cannot be blank"
-        )
-        parser.add_argument(
-            "address", type=str, required=True, help="Address cannot be blank"
-        )
-        parser.add_argument("description", type=str, required=False)
-        parser.add_argument(
-            "url_image", type=str, required=True, help="url_image cannot be blank"
-        )
-        parser.add_argument(
-            "responsible_name",
-            type=str,
-            required=True,
-            help="responsible_name cannot be blank",
-        )
-        data = parser.parse_args()
-        # --
+    def post(self):
+        data = RestaurantDtoRestfull().getArgs()
 
         db = data_base.get_connect("db")
         restaurant = RestaurantModel(db).build(
