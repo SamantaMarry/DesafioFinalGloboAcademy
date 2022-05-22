@@ -1,11 +1,16 @@
 import os
 from flask import request
 from flask_restful import Resource, reqparse
-from src.server.instance import server
 
+from src.server.instance import server
 from src.database import data_base
 from src.model.product import ProductModel
 from src.model.restaurant import RestaurantModel
+from src.controllers.dto.product_dto import (
+    # ProductDtoMarshmallow,
+    ProductDtoRestfull,
+)
+
 
 api = server.api
 
@@ -28,39 +33,16 @@ class Product(Resource):
 
     def put(self, id):
         db = data_base.get_connect("db")
+        data = ProductDtoRestfull().getArgs()
 
-        # --
         product = ProductModel.find_by_id_build(db, id)
         if not product:
             return None, 204
 
-        # --
-        parser = reqparse.RequestParser()
-        parser.add_argument(
-            "name", type=str, required=True, help="name cannot be blank"
-        )
-        parser.add_argument(
-            "url_image", type=str, required=True, help="url_image cannot be blank"
-        )
-        parser.add_argument("description", type=str, required=False)
-        parser.add_argument(
-            "price", type=float, required=True, help="price cannot be blank"
-        )
-        parser.add_argument("extras", type=str, required=False)
-        parser.add_argument(
-            "id_restaurant",
-            type=int,
-            required=True,
-            help="One restaurant should be informed",
-        )
-        data = parser.parse_args()
-
-        # --
         restaurant = RestaurantModel.find_by_id(db, data.id_restaurant)
         if not restaurant:
             return {"Error": "Restaurant not exist"}, 404
 
-        # --
         product.name = data.name
         product.url_image = data.url_image
         product.description = data.description
@@ -107,34 +89,14 @@ class ProductList(Resource):
 
     def post(self):
         db = data_base.get_connect("db")
+        data = ProductDtoRestfull().getArgs()
 
-        # --
-        parser = reqparse.RequestParser()
-        parser.add_argument(
-            "name", type=str, required=True, help="name cannot be blank"
-        )
-        parser.add_argument(
-            "url_image", type=str, required=True, help="url_image cannot be blank"
-        )
-        parser.add_argument("description", type=str, required=False)
-        parser.add_argument(
-            "price", type=float, required=True, help="price cannot be blank"
-        )
-        parser.add_argument("extras", type=str, required=False)
-        parser.add_argument(
-            "id_restaurant",
-            type=int,
-            required=False,
-            help="One restaurant should be informed",
-        )
-        data = parser.parse_args()
+        print(data)
 
-        # --
         restaurant = RestaurantModel.find_by_id(db, data.id_restaurant)
         if not restaurant:
             return {"Error": "Restaurant not exist"}, 404
 
-        # --
         product = ProductModel(db).build(
             data.name,
             data.url_image,

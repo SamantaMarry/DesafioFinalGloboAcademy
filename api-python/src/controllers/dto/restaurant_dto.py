@@ -43,20 +43,33 @@ class RestaurantDtoRestfull:
     def __init__(self) -> None:
         parser = reqparse.RequestParser()
         parser.add_argument(
-            "name", type=str, required=True, help="Name cannot be blank"
+            "name",
+            type=str,
+            required=True,
+            help="Name cannot be blank",
+            location="form",
         )
         parser.add_argument(
-            "address", type=str, required=True, help="Address cannot be blank"
+            "address",
+            type=str,
+            required=True,
+            help="Address cannot be blank",
+            location="form",
         )
         parser.add_argument("description", type=str, required=False)
         parser.add_argument(
-            "url_image", type=str, required=True, help="url_image cannot be blank"
+            "url_image",
+            type=str,
+            required=True,
+            help="url_image cannot be blank",
+            location="form",
         )
         parser.add_argument(
             "responsible_name",
             type=str,
             required=True,
             help="responsible_name cannot be blank",
+            location="form",
         )
 
         self.data = parser.parse_args()

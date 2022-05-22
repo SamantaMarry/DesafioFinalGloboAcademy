@@ -1,19 +1,16 @@
 import os
 from flask import request
-
 from flask_restful import Resource, reqparse
-from marshmallow import ValidationError
-
 from src.server.instance import server
-
 from src.database import data_base
 from src.model.restaurant import RestaurantModel
 from src.model.product import ProductModel
-
 from src.controllers.dto.restaurant_dto import (
-    RestaurantDtoMarshmallow,
+    # RestaurantDtoMarshmallow,
     RestaurantDtoRestfull,
 )
+
+# from marshmallow import ValidationError
 
 api = server.api
 
@@ -49,30 +46,11 @@ class Restaurant(Resource):
 
     def put(self, id):
         db = data_base.get_connect("db")
+        data = RestaurantDtoRestfull().getArgs()
+
         restaurant = RestaurantModel.find_by_id_build(db, id)
         if not restaurant:
             return None, 204
-
-        # --
-        parser = reqparse.RequestParser()
-        parser.add_argument(
-            "name", type=str, required=True, help="Name cannot be blank"
-        )
-        parser.add_argument(
-            "address", type=str, required=True, help="Address cannot be blank"
-        )
-        parser.add_argument("description", type=str, required=False)
-        parser.add_argument(
-            "url_image", type=str, required=True, help="url_image cannot be blank"
-        )
-        parser.add_argument(
-            "responsible_name",
-            type=str,
-            required=True,
-            help="responsible_name cannot be blank",
-        )
-        data = parser.parse_args()
-        # --
 
         # update
         restaurant.name = data.name
@@ -120,20 +98,10 @@ class RestaurantList(Resource):
 
         return restaurants
 
-    def post2(self):
-        try:
-            restaurant_schema = RestaurantDtoMarshmallow()
-            req = restaurant_schema.load(request.get_json())
-        except ValidationError as err:
-            return err.messages, 422
-
-        print(req)
-        return {}, 200
-
     def post(self):
+        db = data_base.get_connect("db")
         data = RestaurantDtoRestfull().getArgs()
 
-        db = data_base.get_connect("db")
         restaurant = RestaurantModel(db).build(
             data.name,
             data.address,
